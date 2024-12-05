@@ -7,7 +7,7 @@
    {
       $new_name=$_POST['new']; // Guardamos el nuevo nombre del archivo.
 
-      $editar=rename("C:/wamp64/www/funcionando_login - copia/PublicacionesProfesor/publicaciones/$nombreArchivo","C:/wamp64/www/funcionando_login - copia/PublicacionesProfesor/publicaciones/$new_name");
+      $editar=rename("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo","C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$new_name");
    
       if($editar) // Verificamos si el archivo se modificó correctamente.
       {
@@ -22,11 +22,11 @@
    {
       $texto=$_POST['texto']; // Guardamos el texto a agregar al archivo.
       
-      $file_exist=file_exists("C:/wamp64/www/funcionando_login - copia/PublicacionesProfesor/publicaciones/$nombreArchivo"); // Verificamos sí el archivo existe.
+      $file_exist=file_exists("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo"); // Verificamos sí el archivo existe.
 
       if($file_exist)
       {
-        $archivo=fopen("C:/wamp64/www/funcionando_login - copia/PublicacionesProfesor/publicaciones/$nombreArchivo","a+"); // Abrimos el archivo.
+        $archivo=fopen("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo","a+"); // Abrimos el archivo.
 
         $edit=fwrite($archivo,"\n\n".$texto."\n\n"); // Agregamos el texto al archivo.
 

@@ -4,7 +4,7 @@
    {
       $nombreArchivo=$_FILES['archivo']['name']; // Guardamos el nombre del archivo.
       $ubicacionTemporal=$_FILES['archivo']['tmp_name']; // Ubicamos temporalmente el archivo.
-      $ubicacionFinal="C:/wamp64/www/funcionando_login - copia/PublicacionesProfesor/publicaciones/$nombreArchivo"; // Definimos la ruta final del archivo.
+      $ubicacionFinal="C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo"; // Definimos la ruta final del archivo.
   
       if(move_uploaded_file($ubicacionTemporal,$ubicacionFinal)) // Verificamos si el archivo se subió correctamente.
       {

@@ -2,11 +2,11 @@
    
    $nombreArchivo=$_POST['file']; // Guardamos el nombre del archivo enviado.
 
-   $verifArchivo=file_exists("C:/wamp64/www/funcionando_login - copia/PublicacionesProfesor/publicaciones/$nombreArchivo"); // Verificamos que el archivo exista.
+   $verifArchivo=file_exists("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo"); // Verificamos que el archivo exista.
    
    if($verifArchivo)
    {
-      $eliminar=unlink("C:/wamp64/www/funcionando_login - copia/PublicacionesProfesor/publicaciones/$nombreArchivo"); // Eliminamos el archivo.
+      $eliminar=unlink("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo"); // Eliminamos el archivo.
       
       if($eliminar) // Verificamos si el archivo se elimino correctamente.
       {
