@@ -1,7 +1,6 @@
 <?php
 session_start();
 function crear_calendario ($mes, $año) {
-
     $diasDeSemana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
     $primerDia = mktime(0, 0, 0, $mes, 1, $año);
     $numeroDias = date('t', $primerDia);
@@ -48,13 +47,10 @@ function crear_calendario ($mes, $año) {
     $calendario .= "<tr style='background-color: deepskyblue; color: black;'>";
 
     foreach ($diasDeSemana as $dia) {
-
         $calendario .= "<th class='header'>$dia</th>";
-
     }
     $calendario .= "<br></tr><tr>"; 
     if ($diaSemana > 0) { 
-
         for ($i = 0; $i < $diaSemana; $i++) {
             $calendario .= "<td></td>";
         }
@@ -73,15 +69,17 @@ function crear_calendario ($mes, $año) {
         $fecha = "$año-$mes-$diaActual";
         $calendario .= "<td><h4>$diaActual</h4>";
 
-        if (isset($_SESSION["asignacion"]) and $_SESSION["asignacion"] == true) { 
-            if (isset($_SESSION["asignadof"]) && $_SESSION["asignadof"] == $fecha) {
-                $calendario .= "<h3>".$_SESSION["asignado"]."</h3>";
-                $_SESSION["asignacion"] = false;
-            }
+        if (isset($_SESSION["asignado"]) and $_SESSION["asignado"] == true) { 
+            if (isset($_SESSION["fecha"]) and array_search($fecha, $_SESSION["fecha"]) !== false) {
+                $index = array_search($fecha, $_SESSION["fecha"]);
+                if (isset($_SESSION["fecha"][$index + 1])) {
+                    $calendario .= $_SESSION["fecha"][$index + 1];
+                }
+            }    
         }
         if (($año == $añoHoy and $mes >= $mesHoy and ($diaActual >= $diaHoy or $mes > $mesHoy)) or ($año > $añoHoy)) {
             $calendario .= "<form method='POST'><input type='hidden' name='fecha' value='$fecha'>
-            <button type='submit' name='asignar' class='asignar'>Asignar</button></form></td>";
+            <button type='submit' name='asignar' value='$fecha' class='asignar'>Asignar</button></form></td>";
         }
         else {
             $calendario .= "<br>";
@@ -91,32 +89,36 @@ function crear_calendario ($mes, $año) {
     }
 
     if($diaSemana != 7) {
-
         $diasRestantes = 7 - $diaSemana;
-
         for ($i = 0; $i < $diasRestantes; $i++) {
-
             $calendario .= "<td></td>";
-
         }
     }
 
     $calendario .= "</tr>";
     $calendario .= "</table><br><br><br></form></div>";
     echo $calendario;
+
     if (isset($_POST['asignar'])) {
         $fecha = $_POST['fecha'];
-        echo "<div class='asignacion' style='text-align: center;'><h3>Asignación</h3>: $fecha
+        echo "<div class='asignacion' style='text-align: center;'><h3>Asignación</h3> $fecha
         <form method='post'>
+            <input type='hidden' name='fecha1' value='$fecha'>
             <input type='text' placeholder='Actividad' name='actividad'>
             <input type='submit' name='si'>
         </form>
         </div>";
+        if (!isset($_SESSION["fecha"]) or !in_array($fecha, $_SESSION["fecha"])) {
+            $_SESSION["fecha"][] = $fecha;
+            $_SESSION["asignado"] = true;
+        }
     }  
     if (isset($_POST["actividad"])) {
-        $_SESSION["asignado"] = $_POST["actividad"];
-        $_SESSION["asignadof"] = $fecha;
-        $_SESSION["asignacion"] = true;
+        $fecha = $_POST['fecha1'];
+        $index = array_search($fecha, $_SESSION["fecha"]);
+        if ($index !== false) {
+            $_SESSION["fecha"][$index + 1] = $_POST["actividad"];
+        }
     } 
 }
     
