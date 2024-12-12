@@ -70,7 +70,7 @@
             $_SESSION['user_id'] = $_SESSION['user_id'] ?? '';
             echo "ID de usuario asignado: " . $_SESSION['user_id'];
             
-            $conn = mysqli_connect("localhost", "root", "", "bandeja_comentarios") or die("Error al conectarse a la base de datos.");
+            $conn = mysqli_connect("localhost", "root", "Carlos1010*", "bandeja_comentarios") or die("Error al conectarse a la base de datos.");
             $resultado = mysqli_query($conn, 'SELECT * FROM comentarios ORDER BY fecha DESC');
 
             while ($reg = mysqli_fetch_array($resultado)) {   

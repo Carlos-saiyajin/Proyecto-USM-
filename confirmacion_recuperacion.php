@@ -1,6 +1,23 @@
 <?php
  session_start();
-$conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
+$conn = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
+
+$_SESSION['tiempo_creacion'] ??= time(); 
+
+
+  $tiempo_creacion = $_SESSION['tiempo_creacion']; 
+  
+  $tiempo_actual = time();
+  
+  $tiempo_expiracion = 1 * 60; 
+   if (($tiempo_actual - $tiempo_creacion) > $tiempo_expiracion) { 
+    
+    echo "El código de confirmación ha expirado.";
+     unset($_SESSION['codigo_confirmacion']);
+      unset($_SESSION['tiempo_creacion']); 
+    } else 
+    { 
+  
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $codigo_ingresado = $_POST['codigo'];
@@ -18,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo "Método no permitido.";
 }
-
+    }
 $_SESSION['mail'] = $_SESSION['mail'] ?? '';
 
 ?>

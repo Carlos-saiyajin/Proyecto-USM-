@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
+$conn = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -11,6 +11,14 @@ require 'vendor/autoload.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
  
+  $tiempo_creacion = time(); 
+  // Hora actual en segundos desde el Epoch
+ // Tiempo de expiración en segundos (por ejemplo, 5 minutos) 
+ $tiempo_expiracion = 1 * 60;
+  
+ $_SESSION['tiempo_creacion'] = $tiempo_creacion;
+ $_SESSION['tiempo_expiracion'] = $tiempo_expiracion;
+
 
     $tiempoEspera = 90; // 90 segundos (1.5 minutos)
     if (isset($_SESSION['ultimo_envio'])) {

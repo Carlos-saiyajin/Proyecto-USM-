@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
+$conn = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -9,6 +9,16 @@ use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  
+  $tiempo_creacion = time(); 
+  // Hora actual en segundos desde el Epoch
+ // Tiempo de expiración en segundos (por ejemplo, 5 minutos) 
+ $tiempo_expiracion = 1 * 60;
+  
+ $_SESSION['tiempo_creacion'] = $tiempo_creacion;
+ $_SESSION['tiempo_expiracion'] = $tiempo_expiracion;
+
 
 
      // Datos del formulario
@@ -99,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           style="height: 7rem"
         />
       </div>
-      <div class="text-center fs-1 fw-bold"><h2>Introduzca mesaje de confirmación</h2></div>
+      <div class="text-center fs-1 fw-bold"><h2>Introduzca mensaje de confirmación</h2></div>
       <form action="confirmacion_recuperacion.php" method="post">
       <div class="input-group mt-4">
         

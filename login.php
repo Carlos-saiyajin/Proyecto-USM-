@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
+$conn = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
 
 session_start();
 
@@ -30,13 +30,13 @@ if (!empty($_POST['mail']) && !empty($_POST['contrasenia'])) {
 
         if (mysqli_num_rows($verificacion_profesor) > 0) {
             $_SESSION['user_id'] = $reg['id'];
-            header("Location: PublicacionesProfesor");
+            header("Location: PublicacionesProfesor/menu.php");
             exit();
         }
 
         if (mysqli_num_rows($verificacion_alumno) > 0) {
             $_SESSION['user_id'] = $reg['id'];
-            header("Location: /proyecto_menu");
+            header("Location: PublicacionesProfesor/menu.php");
             exit();
         }
 

@@ -1,4 +1,4 @@
-<?php session_start(); $conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos."); 
+<?php session_start(); $conn = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos."); 
  $_SESSION['tiempo_creacion'] ??= time(); 
 
 
@@ -14,7 +14,7 @@
       unset($_SESSION['tiempo_creacion']); 
     } else 
     { 
-      echo "El código de confirmación es válido."; 
+  
    
    if ($_SERVER["REQUEST_METHOD"] == "POST") { $codigo_ingresado = $_POST['codigo'];
     
