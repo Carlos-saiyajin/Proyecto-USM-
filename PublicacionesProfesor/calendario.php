@@ -71,7 +71,7 @@ function crear_calendario ($mes, $año) {
 
         $diaActualRel = str_pad($diaActual, 2, "0", STR_PAD_LEFT);
         $fecha = "$año-$mes-$diaActual";
-        $calendario .= "<td><h4>$diaActual<br>$fecha</h4>";
+        $calendario .= "<td><h4>$diaActual</h4>";
 
         if (isset($_SESSION["asignacion"]) and $_SESSION["asignacion"] == true) { 
             if (isset($_SESSION["asignadof"]) && $_SESSION["asignadof"] == $fecha) {
