@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
+$conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Mensaje enviado con éxito.";
         } catch (Exception $e) {
             echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
+            header("Location: confirmacion_recuperacion.php");
         }
     } else {
         echo "Por favor, introduce una dirección de correo electrónico válida.";
@@ -98,8 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           style="height: 7rem"
         />
       </div>
-      <div class="text-center fs-1 fw-bold"><h2>Mensaje enviado con éxito</h2></div>
-      <form action="check_code.php" method="post">
+      <div class="text-center fs-1 fw-bold"><h2>Introduzca mesaje de confirmación</h2></div>
+      <form action="confirmacion_recuperacion.php" method="post">
       <div class="input-group mt-4">
         
         <input

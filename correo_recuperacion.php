@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
+$conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -58,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Mensaje enviado con éxito.";
         } catch (Exception $e) {
             echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
+            header("Location: recuperacion_contraseña.php");
         }
     } else {
         echo "Por favor, introduce una dirección de correo electrónico válida.";

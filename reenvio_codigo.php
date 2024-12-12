@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
+$conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -131,6 +131,7 @@ if(mysqli_num_rows($verificacion_usuario)> 0){
             $_SESSION['ultimo_envio'] = time();
         } catch (Exception $e) {
             echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
+            header("Location: check_code.php");
         }
     } else {
         echo "Por favor, introduce una dirección de correo electrónico válida.";

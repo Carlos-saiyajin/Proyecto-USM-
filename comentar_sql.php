@@ -14,7 +14,7 @@ if (isset($_POST['coment'])) {
     $comentario = $_POST['coment'];
 
     // Conectar a la base de datos de datos_login
-    $conexion = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
+    $conexion = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
     // Obtener nombres y apellidos del usuario
     $reg = mysqli_query($conexion, "SELECT nombres, apellidos FROM registro WHERE id='$id'");
