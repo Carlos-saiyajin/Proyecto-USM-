@@ -2,19 +2,19 @@
 session_start();
 
 // Asegurarse de que user_id está configurado
-$_SESSION['user_id'] = $_SESSION['user_id'] ?? '';
+$_SESSION['user_id'] ??= '';
 
 // Obtener el id del usuario de la sesión
-echo "ID de usuario asignado: " . $_SESSION['user_id'];
+echo "ID de usuario asignado: {$_SESSION['user_id']}";
 
-echo $id."wfbewfb";
+$id=$_SESSION['user_id'];
 
 // Comprobar si el comentario está definido en POST
 if (isset($_POST['coment'])) {
     $comentario = $_POST['coment'];
 
     // Conectar a la base de datos de datos_login
-    $conexion = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
+    $conexion = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
     // Obtener nombres y apellidos del usuario
     $reg = mysqli_query($conexion, "SELECT nombres, apellidos FROM registro WHERE id='$id'");
@@ -32,7 +32,7 @@ if (isset($_POST['coment'])) {
     mysqli_close($conexion);  // Cerrar la primera conexión de base de datos
 
     // Conectar a la base de datos de bandeja_comentarios
-    $conn = mysqli_connect("localhost", "root", "Carlos1010*", "bandeja_comentarios") or die("Error al conectarse a la base de datos.");
+    $conn = mysqli_connect("localhost", "root", "", "bandeja_comentarios") or die("Error al conectarse a la base de datos.");
 
     // Escapar caracteres especiales para evitar inyecciones SQL
     $nombre = mysqli_real_escape_string($conn, $nombres . ' ' . $apellidos);  // Concatenar nombres y apellidos
