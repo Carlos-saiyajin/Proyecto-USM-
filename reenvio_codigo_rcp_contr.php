@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
+$conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $tiempo_creacion_reenvio = time(); 
      // Hora actual en segundos desde el Epoch
     // Tiempo de expiración en segundos (por ejemplo, 5 minutos) 
-    $tiempo_expiracion = 5 * 60;
+    $tiempo_expiracion = 1 * 60;
      
     $_SESSION['codigo_confirmacion'] = $codigo_confirmacion;
     $_SESSION['tiempo_creacion'] = $tiempo_creacion_reenvio;

@@ -107,13 +107,15 @@
                 </button>
             </div>
       </form>
-      </div>
+      <br/>
       <div class="d-flex gap-1 justify-content-center mt-1">
         <div>Ya tienes una cuenta?</div>
         <a href="login.php" class="text-decoration-none text-info fw-semibold"
           >Iniciar sesión</a
         >
       </div>
+      </div>
+      
     </div>
   </body>
 </html>
