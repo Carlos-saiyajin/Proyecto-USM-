@@ -59,3 +59,22 @@ int main()
 	getch();
 	return 0;
 }La Programación es buenisimaHola como estas ? , queria saber si tenias la tarea de programaciónsoy carlos
+
+Esto es una preuba de agregar texto con area definida de texto, si se esta leyendo en el archivo txt, quiere decir que funcionó. :D
+
+
+
+Probando los parrafos :
+
+hola esto es una preuba más, el proyecto esta quedando muy chevere.
+
+hola como estas, hola mundo, css, html.
+
+
+
+Programación, canción, codificación.
+
+
+
+Programación.
+
