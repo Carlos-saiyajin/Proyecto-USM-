@@ -1,121 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="assets/icono_usm.png" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bootstrap Login Page</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-      crossorigin="anonymous"
-    />
-  </head>
-    <body class="bg-primary d-flex justify-content-center align-items-center vh-100">
-    <div
-      class="bg-white p-5 rounded-5 text-secondary shadow"
-      style="width: 25rem"
-    >
-      <div class="d-flex justify-content-center">
-        <img
-          src="assets/icono_usm.png"
-          alt="login-icon"
-          style="height: 7rem"
-        />
-      </div>
-      <div class="text-center fs-1 fw-bold">Registrarse</div>
-      <form action="codigo_correo.php" method="post">
-      <div class="input-group mt-4">
-        
-        <input
-          class="form-control bg-light"
-          type="text"
-          name="nombres"
-          placeholder="Nombres"
-        />
-      </div>
-      <div class="input-group mt-1">
-        <input
-          class="form-control bg-light"
-          type="text"
-          name="apellidos"
-          placeholder="Apellidos"
-          
-        />
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="assets/icono_usm.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('./imagenes/usm_fondo.png') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinea el formulario desde la parte superior */
+            height: 100vh;
+            color: white;
+        }
+        .container {
+            margin-top: 50px; /* Añadir margen superior al formulario */
+            background: rgba(0, 0, 0, 0.7); /* Fondo semitransparente para mejor legibilidad */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            color: white;
+            transform: translateY(-100%);
+            animation: slideIn 1s forwards;
+        }
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+            }
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            height: 7rem;
+        }
+        .header h2 {
+            margin: 10px 0;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            color: #000;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #ffeb3b;
+            text-decoration: none;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="assets/icono_usm.png" alt="login-icon">
+            <h2>Registrarse</h2>
         </div>
-        <div class="input-group mt-1">
-          <input
-            class="form-control bg-light"
-            type="date"
-            name="fecha_nac"
-            placeholder="Fecha de nacimiento"
-            
-          />
-          </div>
-          <div class="input-group mt-1">
-            <input
-              class="form-control bg-light"
-              type="email"
-               name="mail"
-              placeholder="Correo electrónico"
-              
-            />
+        <form action="codigo_correo.php" method="post">
+            <div class="form-group">
+                <input type="text" name="nombres" placeholder="Nombres" required>
             </div>
-            <div class="input-group mt-1">
-          <input
-            class="form-control bg-light"
-            type="number"
-             name="cedula"
-            placeholder="Cédula"
-            
-          />
-          </div>
-          <div class="input-group mt-1">
-            <input
-              class="form-control bg-light"
-              type="number"
-               name="telefono"
-              placeholder="Teléfono"
-              
-            />
+            <div class="form-group">
+                <input type="text" name="apellidos" placeholder="Apellidos" required>
             </div>
-            <div class="input-group mt-1">
-              <input
-                class="form-control bg-light"
-                type="text"
-                 name="usuario"
-                placeholder="Usuario"
-                
-              />
-              </div>
-              <div class="input-group mt-1">
-                <input
-                  class="form-control bg-light"
-                  type="password"
-                   name="contrasenia"
-                  placeholder="contraseña"
-                  
-                />
-
-      </div>
-
-      <div class="mt-4">
-                <button type="submit" class="btn btn-primary text-white w-100 fw-semibold shadow-sm">
-                    registrarse
-                </button>
+            <div class="form-group">
+                <input type="date" name="fecha_nac" placeholder="Fecha de nacimiento" required>
             </div>
-      </form>
-      <br/>
-      <div class="d-flex gap-1 justify-content-center mt-1">
-        <div>Ya tienes una cuenta?</div>
-        <a href="login.php" class="text-decoration-none text-info fw-semibold"
-          >Iniciar sesión</a
-        >
-      </div>
-      </div>
-      
+            <div class="form-group">
+                <input type="email" name="mail" placeholder="Correo electrónico" required>
+            </div>
+            <div class="form-group">
+                <input type="number" name="cedula" placeholder="Cédula" required>
+            </div>
+            <div class="form-group">
+                <input type="number" name="telefono" placeholder="Teléfono" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="usuario" placeholder="Usuario" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="contrasenia" placeholder="Contraseña" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Registrarse</button>
+            </div>
+        </form>
+        <div class="footer">
+            <div>¿Ya tienes una cuenta?</div>
+            <a href="login.php">Iniciar sesión</a>
+        </div>
     </div>
-  </body>
+</body>
 </html>
