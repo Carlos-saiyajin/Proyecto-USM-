@@ -91,6 +91,8 @@
       echo'<td>'.'&nbsp'.'Correo</td>';
       echo'<td>'.'&nbsp'.'Asistencia</td>';
       echo'<td>'.'&nbsp'.'Inasistencia</td>';
+      echo'<td>'.'&nbsp'.'% Asistencia</td>';
+      echo'<td>'.'&nbsp'.'% Inasistencia</td>';
   
     echo'</th>';
   
@@ -100,6 +102,20 @@
   
   while($resultados5=mysqli_fetch_array($accion5))
   {
+    if($resultados5['asistencia']==0 and $resultados5['inasistencia']==0) // Verificamos si la asistencia y la inasistencia del alumno son igual a cero.
+    {
+      $porcentaje_A=0; // Definimos el porcetaje de la asistencia.
+      $porcentaje_I=0; // Definimos el porcentaje de la inasistencia.
+    }
+    else if($resultados5['asistencia']!=0 or $resultados5['inasistencia']!=0) // Verificamos si la asistencia o inasistencia del alumno es igual a cero.
+    {
+      $total=$resultados5['asistencia']+$resultados5['inasistencia']; // Almacenamos el total de regitros en la variable "$total".
+
+      $porcentaje_A=($resultados5['asistencia']*100)/($total); // Calculamos el porcentaje de asistencias.
+  
+      $porcentaje_I=($resultados5['inasistencia']*100)/($total); // Calculamos el porcentaje de inasistencias.
+    }
+
     // Imprimimos en pantalla los registros de la tabla "alumnos" :
     
     // Definimos la tabla : 
@@ -114,6 +130,8 @@
         <td> '."&nbsp". $resultados5['correo_alumno'].'</td>
         <td> '."&nbsp". $resultados5['asistencia'].'</td>
         <td> '."&nbsp". $resultados5['inasistencia'].'</td>
+        <td> '."&nbsp". number_format($porcentaje_A,2).'%'.'</td>
+        <td> '."&nbsp". number_format($porcentaje_I,2).'%'.'</td>
   
         <form action="select_bandeja.php" method="post">
         
@@ -125,6 +143,7 @@
         
               <option value="0">Asistente</option>
               <option value="1">Inasistente</option>
+              <option value="nulo">No Asignar</option>
   
             </select>
           
@@ -143,5 +162,10 @@
     '<input type="submit" value="Registrar">'."&nbsp"."&nbsp".'<input type="submit" name="vaciar" value="Vaciar Registro">
   
   </form>'; // Cierre del formulario.
+
+  echo'<a href="menu.php"><button>Regresar al menú</button></a>'; // Imprimimos el botón para redireccionar al menú.
+
+  mysqli_close($conexion) or die("Hubo Problemas para cerrar la conexión con la base de datos."); // Cerramos la "$conexion" de la base de datos.
+  mysqli_close($conexion2) or die("Hubo Problemas para cerrar la conexión con la base de datos."); // Cerramos la "$conexion2" de la base de datos.
 
 ?>
