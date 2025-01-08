@@ -139,7 +139,7 @@ if (!empty($_POST['mail']) && !empty($_POST['contrasenia'])) {
 
         if (mysqli_num_rows($verificacion_profesor) > 0) {
             $_SESSION['user_id'] = $reg['id'];
-            header("Location: PublicacionesProfesor");
+            header("Location: PublicacionesProfesor/menu.php");
             exit();
         }
 

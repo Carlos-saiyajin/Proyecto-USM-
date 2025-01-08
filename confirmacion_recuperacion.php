@@ -21,7 +21,7 @@ if (($tiempo_actual - $tiempo_creacion) > $tiempo_expiracion) {
 
             $mail = mysqli_real_escape_string($conn, $_SESSION['mail']);
 
-            header('Location: /funcionando_login/nueva_password.php');
+            header('Location: nueva_password.php');
 
         } else {
             echo "Código incorrecto. Intenta de nuevo.";

@@ -1,4 +1,5 @@
 <?php
+session_start();
 $conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
 
@@ -66,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $_SESSION['mail'] = $email;
 
-            session_start();
+
             $_SESSION['codigo_confirmacion'] = $codigo_confirmacion;
 
             echo "Mensaje enviado con éxito.";
