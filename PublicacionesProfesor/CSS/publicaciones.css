@@ -1,0 +1,96 @@
+body{
+
+    font-family:sans-serif;
+    margin:0;
+}
+
+header{
+    
+    display:flex;
+    height:80px;
+    background-color:cornflowerblue;
+    justify-content:space-evenly;
+    align-items:center;
+    padding:10px;
+}
+
+.logo{
+    
+    display:flex;
+}
+
+.logo img{
+
+    width:170px; 
+    height:150px;
+}
+
+select{
+
+    background-color:gold;
+    border-color:black;
+    border-width:2px;
+    border-style:outset;
+}
+
+input{
+
+    background-color:gold;
+}
+
+button{
+
+    background-color:gold;
+}
+
+.imagen_fondo{
+    
+    height:650px;
+    width:1358px;
+    margin:0px;
+    background-image:url(Imagenes/Campus_Santa_Maria.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+
+}
+
+#main_container{
+
+    margin:150px auto;
+    width:600px;
+}
+
+table{
+
+    width:100%;
+    background-color:lightgray;
+    text-align:left;
+}
+
+th,td{
+
+    border: solid 1px black;
+    padding:15px;
+    border-collapse:collapse;
+}
+
+thead{
+
+    background-color:dodgerblue;
+    border-bottom: solid 5px;
+    color:black;
+    font-family:inherit;
+    text-align:center;
+}
+
+tr:hover td{
+
+    background-color:linen;
+    color:black;
+}
+
+a{
+
+    color:black;
+}
