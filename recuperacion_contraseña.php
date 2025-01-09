@@ -78,6 +78,9 @@
                 echo "<p>" . $_SESSION['mensaje'] . "</p>";
                 unset($_SESSION['mensaje']);
             }
+            if (isset($_SESSION['mensaje_correo_recuperacion'])) {
+                echo "<p>" . $_SESSION['mensaje_correo_recuperacion'] . "</p>";
+                unset($_SESSION['mensaje_correo_recuperacion']);}
             ?>
         </div>
         <form action="correo_recuperacion.php" method="post">
