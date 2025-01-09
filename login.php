@@ -1,3 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="assets/icono_usm.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('./imagenes/usm_fondo.png') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            color: white;
+            transform: translateY(-100%);
+            animation: slideIn 1s forwards, fadeIn 1.5s ease-in-out;
+        }
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        .header img {
+            height: 7rem;
+        }
+        .header h2 {
+            margin: 10px 0;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            color: #000;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #ffeb3b;
+            text-decoration: none;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
 <?php
 $conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
@@ -16,7 +125,7 @@ if (!empty($_POST['mail']) && !empty($_POST['contrasenia'])) {
  
     if ($reg = mysqli_fetch_assoc($resultado)) {
 
-            $profesor = "SELECT * FROM `profesores` WHERE correo_profe=?";
+        $profesor = "SELECT * FROM `profesores` WHERE correo_profe=?";
         $stmt_profesor = mysqli_prepare($conn, $profesor);
         mysqli_stmt_bind_param($stmt_profesor, 's', $mail);
         mysqli_stmt_execute($stmt_profesor);
@@ -40,83 +149,47 @@ if (!empty($_POST['mail']) && !empty($_POST['contrasenia'])) {
             exit();
         }
 
-            if(mysqli_num_rows($verificacion_profesor)<= 0 && mysqli_num_rows($verificacion_alumno)<=0){
-                
-                echo'Usted no está en la base de datos de profesores ni de estudiantes';
+        if (mysqli_num_rows($verificacion_profesor) <= 0 && mysqli_num_rows($verificacion_alumno) <= 0) {
+            echo 'Usted no está en la base de datos de profesores ni de estudiantes';
 
-            $db_delete= "DELETE * FROM `registro` WHERE mail='$mail' ";
-            $query_db=mysqli_query($conn, $db_delete);
+            $db_delete = "DELETE * FROM `registro` WHERE mail='$mail' ";
+            $query_db = mysqli_query($conn, $db_delete);
 
-                    exit();
-                }
-        } else {
-            echo "Credenciales incorrectas";
+            exit();
         }
     } else {
-        //echo "Error en la consulta: " . mysqli_error($conn);
+        echo "Credenciales incorrectas";
     }
+} else {
+    //echo "Error en la consulta: " . mysqli_error($conn);
+}
 
 mysqli_close($conn);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="assets/icono_usm.png" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bootstrap Login Page</title>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-        crossorigin="anonymous"
-    />
-</head>
-<body class="bg-primary d-flex justify-content-center align-items-center vh-100">
-    <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
-        <div class="d-flex justify-content-center">
-            <img src="assets/icono_usm.png" alt="login-icon" style="height: 7rem" />
+    <div class="container">
+        <div class="header">
+            <img src="assets/icono_usm.png" alt="login-icon">
+            <h2>Iniciar sesión</h2>
         </div>
-        <div class="text-center fs-1 fw-bold">Iniciar sesión</div>
         <form action="login.php" method="post">
-            <div class="input-group mt-4">
-                <input
-                    class="form-control bg-light"
-                    type="text"
-                    name="mail"
-                    placeholder="correo"
-                    aria-label="Usuario"
-                />
+            <div class="form-group">
+                <input type="text" name="mail" placeholder="Correo" required>
             </div>
-            <div class="input-group mt-1">
-                <input
-                    class="form-control bg-light"
-                    type="password"
-                    name="contrasenia"
-                    placeholder="Contraseña"
-                    aria-label="Contraseña"
-                />
+            <div class="form-group">
+                <input type="password" name="contrasenia" placeholder="Contraseña" required>
             </div>
-            <div class="d-flex justify-content-around mt-1">
-                <div class="pt-1">
-                    <a
-                        href="recuperacion_contraseña"
-                        class="text-decoration-none text-info fw-semibold fst-italic"
-                        style="font-size: 0.9rem"
-                    >Olvidaste tu contraseña?</a>
-                </div>
-            </div>
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary text-white w-100 fw-semibold shadow-sm">
-                    Iniciar sesión
-                </button>
+            <div class="form-group">
+                <button type="submit">Iniciar sesión</button>
             </div>
         </form>
-        <div class="d-flex gap-1 justify-content-center mt-1">
-            <div>No tienes una cuenta?</div>
-            <a href="registrarse.php" class="text-decoration-none text-info fw-semibold">Registrarse</a>
+        <div class="footer">
+            <div>¿Olvidaste tu contraseña?</div>
+            <a href="recuperacion_contraseña">Recuperar contraseña</a>
+        </div>
+        <div class="footer">
+            <div>¿No tienes una cuenta?</div>
+            <a href="registrarse.php">Registrarse</a>
         </div>
     </div>
 </body>
