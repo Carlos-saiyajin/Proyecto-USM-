@@ -14,10 +14,10 @@ if (isset($_POST['coment'])) {
     $comentario = $_POST['coment'];
 
     // Conectar a la base de datos de datos_login
-    $conexion = mysqli_connect("localhost", "root", "Carlos1010*", "datos_login") or die("Error al conectarse a la base de datos.");
+    $conexion = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
     // Obtener nombres y apellidos del usuario
-    $reg = mysqli_query($conexion, "SELECT nombres, apellidos FROM registro WHERE id='$id'");
+    $reg = mysqli_query($conexion, "SELECT nombres, apellidos FROM alumnos WHERE id='$id'");
     $datos = mysqli_fetch_assoc($reg);  // Usar mysqli_fetch_assoc para obtener los datos como un array asociativo
 
     // Verificar que $datos no sea nulo antes de intentar acceder a sus elementos
@@ -32,7 +32,7 @@ if (isset($_POST['coment'])) {
     mysqli_close($conexion);  // Cerrar la primera conexión de base de datos
 
     // Conectar a la base de datos de bandeja_comentarios
-    $conn = mysqli_connect("localhost", "root", "Carlos1010*", "bandeja_comentarios") or die("Error al conectarse a la base de datos.");
+    $conn = mysqli_connect("localhost", "root", "", "bandeja_comentarios") or die("Error al conectarse a la base de datos.");
 
     // Escapar caracteres especiales para evitar inyecciones SQL
     $nombre = mysqli_real_escape_string($conn, $nombres . ' ' . $apellidos);  // Concatenar nombres y apellidos
