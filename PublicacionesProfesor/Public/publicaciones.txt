@@ -1,0 +1,2 @@
+publicaciones/publicacion1.txt
+publicaciones/diagrama huevo-1.drawio
