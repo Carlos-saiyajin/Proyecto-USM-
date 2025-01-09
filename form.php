@@ -92,6 +92,7 @@
         }
         #comments {
             margin-top: 20px;
+            margin-bottom: 140px; /* Agregado margen inferior */
         }
         #comments div {
             background: rgba(249, 249, 249, 0.9);
@@ -169,9 +170,8 @@
         $conexion_login = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos."); 
 
         $id = $_SESSION['user_id'];
-        $result = mysqli_query($conexion_login, "SELECT * FROM registro WHERE id='$id'");
-        $datos = mysqli_fetch_array($result); 
-        echo $datos['restringido'];
+        $result = mysqli_query($conexion_login, "SELECT * FROM alumnos WHERE id='$id'");
+        $datos = mysqli_fetch_array($result); // Usar mysqli_fetch_array para obtener los datos como un array asociativo
 
         // Mostrar comentarios de otras personas
         echo "<div id='comments' class='comment-container'>";

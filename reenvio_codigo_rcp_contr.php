@@ -59,10 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             $_SESSION['codigo_confirmacion'] = $codigo_confirmacion;
 
-            echo "Mensaje enviado con éxito.";
         } catch (Exception $e) {
             echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
-            header("Location: confirmacion_recuperacion.php");
+            $_SESSION['mensaje_correo_recuperacion'] = "El correo no se ha podido enviar correctamente.";
+            header("Location: recuperacion_contraseña.php");
         }
     } else {
         echo "Por favor, introduce una dirección de correo electrónico válida.";

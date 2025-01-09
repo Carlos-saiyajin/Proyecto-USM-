@@ -8,30 +8,28 @@ $tiempo_actual = time();
 $tiempo_expiracion = 1 * 60;
 
 if (($tiempo_actual - $tiempo_creacion) > $tiempo_expiracion) {
-    echo "El código de confirmación ha expirado.";
+    $_SESSION['mesage'] = "El código de confirmación ha expirado.";
     unset($_SESSION['codigo_confirmacion']);
     unset($_SESSION['tiempo_creacion']);
 } else {
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $codigo_ingresado = $_POST['codigo'];
 
         if (isset($_SESSION['codigo_confirmacion']) && $codigo_ingresado == $_SESSION['codigo_confirmacion']) {
-            echo "Código correcto. Acceso concedido.";
+            $_SESSION['mesage'] = "Código correcto. Acceso concedido.";
 
             $mail = mysqli_real_escape_string($conn, $_SESSION['mail']);
 
             header('Location: /funcionando_login/nueva_password.php');
-
+            exit();
         } else {
-            echo "Código incorrecto. Intenta de nuevo.";
+            $_SESSION['mesage'] = "Código incorrecto. Intenta de nuevo.";
         }
     } else {
-        echo "Método no permitido.";
+        $_SESSION['mesage'] = "Método no permitido.";
     }
 }
 $_SESSION['mail'] = $_SESSION['mail'] ?? '';
-
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +40,7 @@ $_SESSION['mail'] = $_SESSION['mail'] ?? '';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introduzca código de confirmación</title>
+    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -108,6 +107,18 @@ $_SESSION['mail'] = $_SESSION['mail'] ?? '';
         <div class="header">
             <img src="assets/icono_usm.png" alt="login-icon">
             <h2>Introduzca código de confirmación</h2>
+
+            <?php
+            if (isset($_SESSION['mensaje_correo_recuperacion'])) {
+                echo "<p>" . $_SESSION['mensaje_correo_recuperacion'] . "</p>";
+                unset($_SESSION['mensaje_correo_recuperacion']);
+            }
+            if (isset($_SESSION['mesage'])) {
+                echo "<p>" . $_SESSION['mesage'] . "</p>";
+                unset($_SESSION['mesage']);
+            }
+            ?>
+
         </div>
         <form action="confirmacion_recuperacion.php" method="post">
             <div class="form-group">

@@ -12,6 +12,8 @@ session_destroy();
 
 echo 'SESION FINALIZADA';
 
+header("Location: ../login.php");
+
 
 }else{
     echo 'no existe sesion';

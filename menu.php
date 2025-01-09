@@ -8,7 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: url('./imagenes/usm_fondo.png') no-repeat center center fixed;
             background-size: cover;
             margin: 0;
@@ -21,18 +21,31 @@
             align-items: center;
         }
         .header {
-            background: rgba(0, 123, 255, 0.7);
-            padding: 20px;
+            background: rgba(0, 123, 255, 0.9);
+            padding: 5px 10px; /* Ajuste del padding para hacer la franja más delgada */
             border-radius: 8px;
-            text-align: center;
-            margin-bottom: 20px;
-            margin-top: 20px;
-            font-family: 'Poppins', sans-serif;
+            width: 100%;
+            box-sizing: border-box;
             animation: fadeIn 2s;
+            margin-bottom: 20px; /* Margen inferior agregado */
         }
-        .header h1 {
-            margin: 0;
-            font-size: 2.5em;
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px; /* Ajuste del margen inferior */
+        }
+        .header-content img {
+            height: 70px;
+        }
+        .date {
+            font-size: 1.5em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .welcome-message {
+            font-size: 1.8em;
+            font-weight: bold;
         }
         .buttons {
             margin-bottom: 20px;
@@ -113,19 +126,23 @@
                 opacity: 1;
             }
         }
-
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>¡Bienvenido a Nuestro Sitio!</h1>
+        <div class="header-content">
+            <img src="./imagenes/Logo_USM_Horizontal.png" alt="Logo">
+            <div class="welcome-message">¡Bienvenido a Nuestro Sitio!</div>
+            <div class="date" id="date"></div>
+        </div>
     </div>
 
     <div class="buttons">
         <a href="menu_index.php">Publicaciones</a>
         <a href="calendario.php">Calendario</a>
         <a href="comentar_sql.php">Bandeja De Comentarios</a>
+        <a href="bandeja_asistencia.php">Bandeja de Asistencia</a>
         <a href="close.php">Cerrar Sesión</a>
     </div>
 
@@ -179,7 +196,10 @@
             showSlide(currentIndex - 1);
         }
 
-        setInterval(nextSlide, 20000); // Cambia de imagen cada 3 segundos
+        setInterval(nextSlide, 20000); // Cambia de imagen cada 20 segundos
+
+        // Set the date in the header
+        document.getElementById('date').textContent = new Date().toLocaleDateString();
     </script>
 </body>
 </html>

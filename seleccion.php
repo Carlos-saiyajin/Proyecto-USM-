@@ -118,7 +118,7 @@
             <?php
             $conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
-            $result = mysqli_query($conn, "SELECT * FROM registro");
+            $result = mysqli_query($conn, "SELECT * FROM alumnos");
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
