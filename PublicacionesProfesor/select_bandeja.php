@@ -2,7 +2,7 @@
 
 session_start(); // LLamamos a la función "session_start()" para utilizar las variables de sesión.
 
-if(!isset($_POST['vaciar'])) // Verificamos si no se presionó el botón "Vaciar Registro".
+if((!isset($_POST['vaciar'])) and (!isset($_POST['si'])) and (!isset($_POST['no']))) // Verificamos si no se presionó el botón "Vaciar Registro" y los botones "si" y "no".
 {
    $asistencias=$_POST['verif']; // Almacenamos las asistencias y inasistencias.
    $ID=$_SESSION['ID']; // Almacenamos los ID de los alumnos asistentes y inasistentes.
@@ -23,12 +23,42 @@ if(!isset($_POST['vaciar'])) // Verificamos si no se presionó el botón "Vaciar
    while($resultados1=mysqli_fetch_array($accion1))
    {
       if($ID[$j]==$resultados1['id']) // Verificamos que el "ID" sea igual al "id" de la tabla.
-      {
-        if($asistencias[$i]==0 and $resultados1['asistencia']==0) // Verificamos si el alumno estuvo asistente y si no tiene asistencias registradas.
+      { 
+        if($asistencias[$i]=="nulo" and $resultados1['asistencia']==0)
+        {
+            $nuevo_valor=0;
+ 
+            $sql7="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$j]'";
+ 
+            $accion7=mysqli_query($conexion,$sql7) or die(mysqli_error($conexion));
+        }
+        else if($asistencias[$i]=="nulo" and $resultados1['inasistencia']==0)
+        {
+            $nuevo_valor=0;
+ 
+            $sql8="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$j]'";
+ 
+            $accion8=mysqli_query($conexion,$sql8) or die(mysqli_error($conexion));
+        }
+        else if($asistencias[$i]=="nulo" and $resultados1['asistencia']!=0)
+        {
+            $nuevo_valor=$resultados1['asistencia'];
+ 
+            $sql9="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$j]'";
+ 
+            $accion9=mysqli_query($conexion,$sql9) or die(mysqli_error($conexion));
+        }
+        else if($asistencias[$i]=="nulo" and $resultados1['inasistencia']!=0)
+        {
+            $nuevo_valor=$resultados1['inasistencia'];
+ 
+            $sql10="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$j]'";
+        }
+        else if($asistencias[$i]==0 and $resultados1['asistencia']==0) // Verificamos si el alumno estuvo asistente y si no tiene asistencias registradas.
         {
            $nuevo_valor=1; // Definimos el valor de la asistencia.
           
-           $sql2="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$i]'"; // Definimos la acción 2.
+           $sql2="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$j]'"; // Definimos la acción 2.
 
            $accion2=mysqli_query($conexion,$sql2) or die(mysqli_error($conexion)); // Ejecutamos la acción 2.
         }
@@ -36,7 +66,7 @@ if(!isset($_POST['vaciar'])) // Verificamos si no se presionó el botón "Vaciar
         { 
            $nuevo_valor=1; // Definimos el valor de la inasistencia.
           
-           $sql3="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$i]'"; // Definimos la acción 3.
+           $sql3="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$j]'"; // Definimos la acción 3.
 
            $accion3=mysqli_query($conexion,$sql3) or die(mysqli_error($conexion)); // Ejecutamos la acción 3.
         }
@@ -44,7 +74,7 @@ if(!isset($_POST['vaciar'])) // Verificamos si no se presionó el botón "Vaciar
         {
            $nuevo_valor=$resultados1['asistencia']+1; // Definimos el valor de la asistencia.
 
-           $sql4="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$i]'"; // Definimos la acción 4.
+           $sql4="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$j]'"; // Definimos la acción 4.
 
            $accion4=mysqli_query($conexion,$sql4) or die(mysqli_error($conexion)); // Ejecutamos la acción 4.
         }
@@ -52,7 +82,7 @@ if(!isset($_POST['vaciar'])) // Verificamos si no se presionó el botón "Vaciar
         {
            $nuevo_valor=$resultados1['inasistencia']+1; // Definimos el valor de la inasistencia.
 
-           $sql5="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$i]'"; // Definimos la acción 5.
+           $sql5="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$j]'"; // Definimos la acción 5.
 
            $accion5=mysqli_query($conexion,$sql5) or die(mysqli_error($conexion)); // Ejecutamos la acción 5.
         }
@@ -88,29 +118,52 @@ if(!isset($_POST['vaciar'])) // Verificamos si no se presionó el botón "Vaciar
 
    $_SESSION['array_A']=$array_A; // Alamacenamos las asisencias registradas dentro de la variable de sesión "array_A".
    $_SESSION['array_I']=$array_I; // Alamacenamos las inasistencias registradas dentro de la variable de sesión "array_I".
+   
+   mysqli_close($conexion) or die("Hubo Problemas para cerrar la conexión con la base de datos."); // Cerramos sesión con la base de datos.
 
    header("Location: bandeja_asistencia.php"); // Redireccionamos a la página "bandeja_asistencia.php".
 }
 
 if(isset($_POST['vaciar'])) // Verficamos si se presionó el botón "Vaciar Registro".
 {
-  // Establecemos la conexión con la base de datos : 
+   // Solicitamos la validación para vaciar el registro de las asistencias :
 
-  $conexion=mysqli_connect("localhost","root","Carlos1010*","bandeja_asistencia") or die("Hubo Problemas para conectarse a la base de datos.");
+   echo'<form action="select_bandeja.php" method="post">
+     
+     <p> ¿ Desea Vaciar el registro ? </p>
 
-  $asistencia=0; // Reiniciamos las asistencias.
-  $inasistencia=0; // Reiniciamos las inasistencias.
-  
-  $sql5="UPDATE alumnos SET asistencia='$asistencia' AND inasistencia='$inasistencia'"; // Definimos la acción 5.
-   
-  $accion5=mysqli_query($conexion,$sql5); // Ejecutamos la accion 5.
-   
-  $array_A=[]; // Reiniciamos el arreglo donde se almacenarán las asistencias.
-  $array_I=[]; // Reiniciamos el arreglo donde se almacenarán las inasistencias.
-  
-  $_SESSION['array_A']=$array_A; // Reiniciamos las variables de sesión donde se enviarán el registro de las asistencias.
-  $_SESSION['array_I']=$array_I; // Reiniciamos las variables de sesión donde se enviarán el registro de las asistencias.
-  
-  header("Location: bandeja_asistencia.php"); // Redireccionamos a la página "bandeja_asistencia.php".
+     <input type="submit" name="si" value="Si">
+     <input type="submit" name="no" value="NO"> 
+      
+   </form>';
 }
+
+if(isset($_POST['si']))
+{
+  // Establecemos la conexión con la base de datos : 
+  
+  $conexion=mysqli_connect("localhost","root","Carlos1010*","bandeja_asistencia") or die("Hubo Problemas para conectarse a la base de datos.");
+  
+  $asistencia=0;
+  $inasistencia=0;
+  
+  $sql5="UPDATE alumnos SET asistencia='$asistencia' AND inasistencia='$inasistencia'";
+   
+  $accion5=mysqli_query($conexion,$sql5);
+   
+  $array_A=[];
+  $array_I=[];
+  
+  $_SESSION['array_A']=$array_A;
+  $_SESSION['array_I']=$array_I;
+  
+  mysqli_close($conexion);
+  
+  header("Location: bandeja_asistencia.php");
+}
+else if(isset($_POST['no']))
+{ 
+   header("Location: bandeja_asistencia.php"); // Redireccionamos a la página "bandeja_asistencia.php".
+}
+
 ?>
