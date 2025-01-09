@@ -35,31 +35,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $verificacion_mail = mysqli_query($conn, $consulta_mail);
 
     if (mysqli_num_rows($verificacion_mail) > 0) {
-        echo 'Este correo ya está registrado, intente con otro correo';
-        echo '<span><a href="registrarse.php">registrarse</a></span>';
+        $_SESSION['mensaje_correo'] = "Este correo ya está registrado, intente con otro.";
+
+        header("Location: registrarse.php");
         exit();
     }
     $consulta_cedula = "SELECT * FROM `registro` WHERE cedula='$cedula'";
     $verificacion_cedula = mysqli_query($conn, $consulta_cedula);
 
     if (mysqli_num_rows($verificacion_cedula) > 0) {
-        echo 'Esta cedula ya está registrada, intente con otra cedula';
-        echo '<span><a href="registrarse.php">registrarse</a></span>';
+         
+        $_SESSION['mensaje_correo'] = "Esta cédula ya está registrado, intente con otro.";
+
+        header("Location: registrarse.php");
         exit();
     }
     $consulta_telefono = "SELECT * FROM `registro` WHERE telefono='$telefono'";
     $verificacion_telefono = mysqli_query($conn, $consulta_telefono);
 
     if (mysqli_num_rows($verificacion_telefono) > 0) {
-        echo 'Este telefono ya está registrado, intente con otro';
-        echo '<span>or <a href="registrarse.php">registrarse</a></span>';
+        
+        $_SESSION['mensaje_correo'] = "Este teléfono ya está registrado, intente con otro.";
+
+        header("Location: registrarse.php");
         exit();
     }
     $consulta_usuario = "SELECT * FROM `registro` WHERE usuario='$usuario'";
     $verificacion_usuario = mysqli_query($conn, $consulta_usuario);
     if (mysqli_num_rows($verificacion_usuario) > 0) {
-        echo 'Este usuario ya está registrado, intente con otro';
-        echo '<span>or <a href="registrarse.php">registrarse</a></span>';
+        
+        $_SESSION['mensaje_correo'] = "Este usuario ya está registrado, intente con otro.";
+
+        header("Location: registrarse.php");
         exit();
     }
 
@@ -103,9 +110,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['usuario'] = $usuario;
             $_SESSION['contrasenia'] = $contrasenia;
 
-            echo "Mensaje enviado con éxito.";
         } catch (Exception $e) {
             echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
+            $_SESSION['mensaje_correo'] = "El correo no se ha podido enviar correctamente, por favor rellene sus datos de nuevo.";
+
             header("Location: registrarse.php");
         }
     } else {

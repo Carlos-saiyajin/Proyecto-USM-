@@ -13,15 +13,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
    if ($contrasenia == $contrasenia_2) {
        if (mysqli_query($conn, $sql)) {
-           echo "Registro exitoso!";
+           $_SESSION['mensaje'] = "Registro exitoso!";
+           $_SESSION['mensaje_tipo'] = "success";
            header("location: login.php");
+           exit();
        } else {
-           echo "Error: " . mysqli_error($conn);
+           $_SESSION['mensaje'] = "Error: " . mysqli_error($conn);
+           $_SESSION['mensaje_tipo'] = "error";
        }
    } else {
-       echo 'Las contraseñas no son iguales';
+       $_SESSION['mensaje'] = 'Las contraseñas no son iguales';
+       $_SESSION['mensaje_tipo'] = "error";
    }
-} else {
 }
 ?>
 <!DOCTYPE html>
@@ -91,6 +94,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .form-group button:hover {
             background-color: #0056b3;
         }
+        .message {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            color: white;
+        }
+        .message.success {
+            background-color: #28a745; /* Verde para mensajes de éxito */
+        }
+        .message.error {
+            background-color: #dc3545; /* Rojo para mensajes de error */
+        }
     </style>
 </head>
 <body>
@@ -110,6 +126,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Enviar</button>
             </div>
         </form>
+        <?php
+        if (isset($_SESSION['mensaje'])) {
+            $mensaje_tipo = $_SESSION['mensaje_tipo'] ?? 'error';
+            echo "<div class='message $mensaje_tipo'>" . $_SESSION['mensaje'] . "</div>";
+            unset($_SESSION['mensaje']);
+            unset($_SESSION['mensaje_tipo']);
+        }
+        ?>
     </div>
 </body>
 </html>

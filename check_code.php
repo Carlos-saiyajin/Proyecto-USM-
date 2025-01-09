@@ -8,7 +8,8 @@ $tiempo_actual = time();
 $tiempo_expiracion = 1 * 60;
 
 if (($tiempo_actual - $tiempo_creacion) > $tiempo_expiracion) {
-    echo "El código de confirmación ha expirado.";
+    $_SESSION['mensaje'] = "El código de confirmación ha expirado.";
+    $_SESSION['mensaje_tipo'] = "error";
     unset($_SESSION['codigo_confirmacion']);
     unset($_SESSION['tiempo_creacion']);
 } else {
@@ -16,7 +17,9 @@ if (($tiempo_actual - $tiempo_creacion) > $tiempo_expiracion) {
         $codigo_ingresado = $_POST['codigo'];
 
         if (isset($_SESSION['codigo_confirmacion']) && $codigo_ingresado == $_SESSION['codigo_confirmacion']) {
-            echo "Código correcto. Acceso concedido.";
+            $_SESSION['mensaje_correo'] = "Código correcto. Acceso concedido.";
+            $_SESSION['mensaje_tipo'] = "success";
+
             // Función para escapar cadenas
             function escape_string($conn, $value) {
                 return is_string($value) ? mysqli_real_escape_string($conn, $value) : '';
@@ -33,20 +36,24 @@ if (($tiempo_actual - $tiempo_creacion) > $tiempo_expiracion) {
             $sql = "INSERT INTO `registro` (`nombres`, `apellidos`, `fecha_nac`, `mail`, `cedula`, `telefono`, `usuario`, `contrasenia`) VALUES ('$nombres', '$apellidos', '$fecha_nac', '$mail', '$cedula', '$telefono', '$usuario', '$contrasenia')";
             // Ejecutar la consulta
             if (mysqli_query($conn, $sql)) {
-                echo "Registro exitoso!";
+                $_SESSION['mensaje_correo'] = "Registro exitoso!";
+                $_SESSION['mensaje_tipo'] = "success";
                 header('Location: login.php');
                 exit;
             } else {
-                echo "Error: " . mysqli_error($conn);
+                $_SESSION['mensaje_correo'] = "Error: " . mysqli_error($conn);
+                $_SESSION['mensaje_tipo'] = "error";
             }
             // Restablecer las variables de sesión después de la validación exitosa
             unset($_SESSION['codigo_confirmacion']);
             unset($_SESSION['tiempo_creacion']);
         } else {
-            echo "Código incorrecto. Intenta de nuevo.";
+            $_SESSION['mensaje_correo'] = "Código incorrecto. Intenta de nuevo.";
+            $_SESSION['mensaje_tipo'] = "error";
         }
     } else {
-        // echo "Método no permitido.";
+        $_SESSION['mensaje_correo'] = "Método no permitido.";
+        $_SESSION['mensaje_tipo'] = "error";
     }
     $_SESSION['nombres'] = $_SESSION['nombres'] ?? '';
     $_SESSION['apellidos'] = $_SESSION['apellidos'] ?? '';
@@ -83,7 +90,7 @@ mysqli_close($conn);
             color: white;
         }
         .container {
-          background: rgba(0, 0, 0, 0.7); /* Fondo blanco traslúcido para mejor legibilidad */
+            background: rgba(0, 0, 0, 0.7); /* Fondo blanco traslúcido para mejor legibilidad */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             padding: 30px;
@@ -128,6 +135,20 @@ mysqli_close($conn);
         .form-group button:hover {
             background-color: #0056b3;
         }
+        .message {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+        }
+        .message.success {
+            background-color: #28a745; /* Verde para mensajes de éxito */
+        }
+        .message.error {
+            background-color: #dc3545; /* Rojo para mensajes de error */
+        }
     </style>
 </head>
 <body>
@@ -149,6 +170,14 @@ mysqli_close($conn);
                 <button type="submit" class="btn btn-primary text-white w-100 fw-semibold shadow-sm">Reenviar código</button>
             </div>
         </form>
+        <?php
+        if (isset($_SESSION['mensaje_correo'])) {
+            $mensaje_tipo = $_SESSION['mensaje_tipo'] ?? 'error';
+            echo "<div class='message $mensaje_tipo'>" . $_SESSION['mensaje_correo'] . "</div>";
+            unset($_SESSION['mensaje_correo']);
+            unset($_SESSION['mensaje_tipo']);
+        }
+        ?>
     </div>
 </body>
 </html>
