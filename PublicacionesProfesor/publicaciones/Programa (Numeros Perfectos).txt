@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>Números Perfectos</title>
+</head>
+<body>
+    <h2>Números Perfectos</h2>
+    <form action="numerosPerfectos.php" method="post">
+        <input type="number" name="rangoI" placeholder="Número Inicial">
+        <input type="number" name="rangoF" placeholder="Número Final">
+        <input type="submit" value="Enviar"><br><br>
+</body>
+</html>
+<?php
+if (isset($_POST['rangoI']) and isset($_POST['rangoF'])) {
+    $rangoI = $_POST['rangoI'];
+    $rangoF = $_POST['rangoF'];
+    echo "<h3>Rango desde $rangoI hasta $rangoF</h3>";
+    for ($i = $rangoI; $i <= $rangoF; $i++) {
+        $suma = 0;
+        for ($j = 1; $j <= sqrt($i); $j++) {
+            if ($i % $j == 0) {
+                $suma += $j;
+                if ($j != 1 and $j != $i / $j) {
+                    $suma += $i / $j;
+                }
+            }
+        }
+        if ($suma == $i) {
+            echo "El número $i es perfecto.<br>";
+        }
+    }
+}
+?>
