@@ -22,8 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          exit();
      }
 
-
-
      $nombre = 'Codigo de confirmacion';
      $email = htmlspecialchars(trim($_POST['mail']));
      $codigo_confirmacion = rand(100000, 999999); // Genera un código de 6 dígitos
@@ -67,16 +65,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $_SESSION['mail'] = $email;
 
-
             $_SESSION['codigo_confirmacion'] = $codigo_confirmacion;
 
-            echo "Mensaje enviado con éxito.";
         } catch (Exception $e) {
-            echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
+            $_SESSION['mensaje_correo_recuperacion'] = "El correo no se ha podido enviar correctamente.";
             header("Location: recuperacion_contraseña.php");
+            exit();
         }
     } else {
-        echo "Por favor, introduce una dirección de correo electrónico válida.";
+       
     }
 }
 ?>

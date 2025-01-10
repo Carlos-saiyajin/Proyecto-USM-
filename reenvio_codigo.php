@@ -39,37 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = htmlspecialchars(trim($mail));
     $codigo_confirmacion = rand(100000, 999999);
    
-    $consulta_mail= "SELECT * FROM `registro` WHERE mail='$mail'";
-    $verificacion_mail = mysqli_query($conn, $consulta_mail);
-
-    if (mysqli_num_rows($verificacion_mail) > 0) {
-        echo 'Este correo ya está registrado, intente con otro correo';
-        echo '<span><a href="registrarse.php">registrarse</a></span>';
-        exit();
-    }
-    $consulta_cedula = "SELECT * FROM `registro` WHERE cedula='$cedula'";
-    $verificacion_cedula = mysqli_query($conn, $consulta_cedula);
-
-    if (mysqli_num_rows($verificacion_cedula) > 0) {
-        echo 'Esta cedula ya está registrada, intente con otra cedula';
-        echo '<span><a href="registrarse.php">registrarse</a></span>';
-        exit();
-    }
-    $consulta_telefono = "SELECT * FROM `registro` WHERE telefono='$telefono'";
-    $verificacion_telefono = mysqli_query($conn, $consulta_telefono);
-
-    if (mysqli_num_rows($verificacion_telefono) > 0) {
-        echo 'Este telefono ya está registrado, intente con otro';
-        echo '<span>or <a href="registrarse.php">registrarse</a></span>';
-        exit();
-    }
-    $consulta_usuario = "SELECT * FROM `registro` WHERE usuario='$usuario'";
-    $verificacion_usuario = mysqli_query($conn, $consulta_usuario);
-    if (mysqli_num_rows($verificacion_usuario) > 0) {
-        echo 'Este usuario ya está registrado, intente con otro';
-        echo '<span>or <a href="registrarse.php">registrarse</a></span>';
-        exit();
-    }
 
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $to = 'proyectophp2024@gmail.com';
@@ -106,11 +75,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['usuario'] = $usuario;
             $_SESSION['contrasenia'] = $contrasenia;
 
-            echo "Mensaje enviado con éxito.";
+         
             $_SESSION['ultimo_envio'] = time();
         } catch (Exception $e) {
             echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
-            header("Location: check_code.php");
+            $_SESSION['mensaje_correo'] = "El correo no se ha podido enviar correctamente, por favor rellene sus datos de nuevo.";
+
+            header("Location: registrarse.php");
         }
     } else {
         echo "Por favor, introduce una dirección de correo electrónico válida.";

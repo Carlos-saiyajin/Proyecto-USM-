@@ -87,6 +87,15 @@
         .footer a:hover {
             text-decoration: underline;
         }
+        .error-message {
+            color: #ffeb3b; /* Cambia el color según tu preferencia */
+            background-color: rgba(255, 0, 0, 0.5); /* Fondo semitransparente */
+            border: 2px solid #ff0000; /* Borde rojo */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interior */
+            margin-bottom: 15px; /* Espaciado inferior */
+            text-align: center; /* Centrar el texto */
+        }
     </style>
 </head>
 <body>
@@ -94,6 +103,13 @@
         <div class="header">
             <img src="assets/icono_usm.png" alt="login-icon">
             <h2>Registrarse</h2>
+            <?php
+            session_start();
+            if (isset($_SESSION['mensaje_correo'])) {
+                echo "<div class='error-message'>" . $_SESSION['mensaje_correo'] . "</div>";
+                unset($_SESSION['mensaje_correo']);
+            }
+            ?>
         </div>
         <form action="codigo_correo.php" method="post">
             <div class="form-group">

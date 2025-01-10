@@ -28,33 +28,15 @@
             width: 90%;
             max-width: 400px;
             color: white;
-            transform: translateY(-100%);
-            animation: slideIn 1s forwards, fadeIn 1.5s ease-in-out;
-        }
-        @keyframes slideIn {
-            to {
-                transform: translateY(0);
-            }
+            animation: fadeIn 1.5s ease-in-out forwards;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-30px);
-            }
-            60% {
-                transform: translateY(-15px);
-            }
-        }
         .header {
             text-align: center;
             margin-bottom: 20px;
-            animation: bounce 2s infinite;
         }
         .header img {
             height: 7rem;
@@ -103,75 +85,84 @@
         .footer a:hover {
             text-decoration: underline;
         }
+        .error-message {
+            color: #ffeb3b; /* Cambia el color según tu preferencia */
+            background-color: rgba(255, 0, 0, 0.5); /* Fondo semitransparente */
+            border: 2px solid #ff0000; /* Borde rojo */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interior */
+            margin-bottom: 15px; /* Espaciado inferior */
+            text-align: center; /* Centrar el texto */
+        }
     </style>
 </head>
 <body>
-
-<?php
-$conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
-
-session_start();
-
-if (!empty($_POST['mail']) && !empty($_POST['contrasenia'])) {
-    $mail = mysqli_real_escape_string($conn,$_POST['mail']);
-    $contrasenia = md5(mysqli_real_escape_string($conn,$_POST['contrasenia']));
-
-    // Use prepared statements to prevent SQL injection
-    $sql = "SELECT id, mail, contrasenia FROM registro WHERE mail=? and contrasenia=?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, 'ss', $mail, $contrasenia);
-    mysqli_stmt_execute($stmt);
-    $resultado = mysqli_stmt_get_result($stmt);
- 
-    if ($reg = mysqli_fetch_assoc($resultado)) {
-
-        $profesor = "SELECT * FROM `profesores` WHERE correo_profe=?";
-        $stmt_profesor = mysqli_prepare($conn, $profesor);
-        mysqli_stmt_bind_param($stmt_profesor, 's', $mail);
-        mysqli_stmt_execute($stmt_profesor);
-        $verificacion_profesor = mysqli_stmt_get_result($stmt_profesor);
-
-        $alumno = "SELECT * FROM `alumnos` WHERE correo_alumno=?";
-        $stmt_alumno = mysqli_prepare($conn, $alumno);
-        mysqli_stmt_bind_param($stmt_alumno, 's', $mail);
-        mysqli_stmt_execute($stmt_alumno);
-        $verificacion_alumno = mysqli_stmt_get_result($stmt_alumno);
-
-        if (mysqli_num_rows($verificacion_profesor) > 0) {
-            $_SESSION['user_id'] = $reg['id'];
-            header("Location: PublicacionesProfesor/menu.php");
-            exit();
-        }
-
-        if (mysqli_num_rows($verificacion_alumno) > 0) {
-            $_SESSION['user_id'] = $reg['id'];
-            header("Location: PublicacionesProfesor");
-            exit();
-        }
-
-        if (mysqli_num_rows($verificacion_profesor) <= 0 && mysqli_num_rows($verificacion_alumno) <= 0) {
-            echo 'Usted no está en la base de datos de profesores ni de estudiantes';
-
-            $db_delete = "DELETE * FROM `registro` WHERE mail='$mail' ";
-            $query_db = mysqli_query($conn, $db_delete);
-
-            exit();
-        }
-    } else {
-        echo "Credenciales incorrectas";
-    }
-} else {
-    //echo "Error en la consulta: " . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-?>
-
     <div class="container">
         <div class="header">
             <img src="assets/icono_usm.png" alt="login-icon">
             <h2>Iniciar sesión</h2>
         </div>
+
+        <?php
+        $conn = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
+        session_start();
+        $error_message = "";
+
+        if (!empty($_POST['mail']) && !empty($_POST['contrasenia'])) {
+            $mail = mysqli_real_escape_string($conn,$_POST['mail']);
+            $contrasenia = md5(mysqli_real_escape_string($conn,$_POST['contrasenia']));
+
+            // Use prepared statements to prevent SQL injection
+            $sql = "SELECT id, mail, contrasenia FROM registro WHERE mail=? and contrasenia=?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, 'ss', $mail, $contrasenia);
+            mysqli_stmt_execute($stmt);
+            $resultado = mysqli_stmt_get_result($stmt);
+
+            if ($reg = mysqli_fetch_assoc($resultado)) {
+
+                $profesor = "SELECT * FROM `profesores` WHERE correo_profe=?";
+                $stmt_profesor = mysqli_prepare($conn, $profesor);
+                mysqli_stmt_bind_param($stmt_profesor, 's', $mail);
+                mysqli_stmt_execute($stmt_profesor);
+                $verificacion_profesor = mysqli_stmt_get_result($stmt_profesor);
+                $reg_profesor= mysqli_fetch_assoc($verificacion_profesor);
+
+                $alumno = "SELECT * FROM `alumnos` WHERE correo_alumno=?";
+                $stmt_alumno = mysqli_prepare($conn, $alumno);
+                mysqli_stmt_bind_param($stmt_alumno, 's', $mail);
+                mysqli_stmt_execute($stmt_alumno);
+                $verificacion_alumno = mysqli_stmt_get_result($stmt_alumno);
+                $reg_alumno= mysqli_fetch_assoc($verificacion_alumno);
+
+                if (mysqli_num_rows($verificacion_profesor) > 0) {
+                    $_SESSION['user_id'] = $reg_profesor['id'];
+                    header("Location: PublicacionesProfesor");
+                    exit();
+                }
+
+                if (mysqli_num_rows($verificacion_alumno) > 0) {
+                    $_SESSION['user_id'] = $reg_alumno['id'];
+                    header("Location: parte_alumnos");
+                    exit();
+                }
+
+                if (mysqli_num_rows($verificacion_profesor) <= 0 && mysqli_num_rows($verificacion_alumno) <= 0) {
+                    $error_message = 'Usted no está en la base de datos de profesores ni de estudiantes';
+                    $db_delete = "DELETE * FROM `registro` WHERE mail='$mail' ";
+                    $query_db = mysqli_query($conn, $db_delete);
+                }
+            } else {
+                $error_message = "Credenciales incorrectas";
+            }
+        }
+        mysqli_close($conn);
+        ?>
+
+        <?php if (!empty($error_message)): ?>
+            <div class="error-message"><?php echo $error_message; ?></div>
+        <?php endif; ?>
+
         <form action="login.php" method="post">
             <div class="form-group">
                 <input type="text" name="mail" placeholder="Correo" required>
