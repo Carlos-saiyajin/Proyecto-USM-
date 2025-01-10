@@ -1,2 +1,4 @@
-publicaciones/publicacion1.txt
+publicaciones/diagrama lampara.drawio
 publicaciones/diagrama huevo-1.drawio
+publicaciones/Diagrama login.drawio
+publicaciones/Programa (Numeros Perfectos).txt
