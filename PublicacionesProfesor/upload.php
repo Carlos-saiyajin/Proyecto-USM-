@@ -1,5 +1,7 @@
 <?php
    
+   session_start(); // LLamamos a la función "session_start()" para utilizar las variables de sesión.
+
    if($_FILES['archivo']['error'] === UPLOAD_ERR_OK) // Verificamos si el archivo se envió correctamente.
    {
       $nombreArchivo=$_FILES['archivo']['name']; // Guardamos el nombre del archivo.
@@ -17,15 +19,15 @@
          
          $archivo_subido="publicaciones/".$nombreArchivo; // Almacenamos la ruta y el nombre del archivo subido.
 
-         if(!isset($_SESSION['total'])) // Verfiricamos si la variable de sesión "total" esta vacía, que viene del archivo "publicaciones_subidas.php".
+         if($_SESSION['total']==null) // Verfiricamos si la variable de sesión "total" esta vacía, que viene del archivo "publicaciones_subidas.php".
          {
-            $archivo1=fopen("Public/publicaciones.txt","r+"); // Abrimos el achivo "publicaciones.txt" en modo escritura.
+            $archivo1=fopen("Public/publicaciones.txt","w+"); // Abrimos el achivo "publicaciones.txt" en modo escritura.
    
                fwrite($archivo1,$archivo_subido."\n"); // Agregamos el archivo.
              
             fclose($archivo1); // Cerramos el archivo "publicaciones.txt".
 
-            $archivo2=fopen("Fechas/fechas.txt","r+"); // Abrimos el archivo "fechas.txt" en modo escritura.
+            $archivo2=fopen("Fechas/fechas.txt","w+"); // Abrimos el archivo "fechas.txt" en modo escritura.
             
               fwrite($archivo2,$fecha_completa."\n"); // Agregamos la fecha en la que se subió el archivo.
  
