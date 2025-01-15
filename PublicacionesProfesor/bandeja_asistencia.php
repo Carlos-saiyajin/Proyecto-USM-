@@ -1,171 +1,177 @@
-<?php 
-
-  session_start(); // LLamamos a la función "session_start()" para utilizar las variables de sesión.
-
-  $array_A=[]; // Definimos el arreglo donde se almacenó las asistencias del archivo "select_bandeja.php".
-  $array_I=[]; // Definimos el arreglo donde se almacenó las inasistencias del archivo "select_bandeja.php".
-  
-  if(isset($_SESSION['array_A']) and isset($_SESSION['array_I'])) // Verificamos si las variables de sesión tienen algún valor.
-  {
-    $array_A=$_SESSION['array_A']; // Almacenamos en el arreglo "$array_A" las asistencias registradas.
-    $array_I=$_SESSION['array_I']; // Alamacenamos en el arreglo "array_I" las inasistencias registradas.
-  }
-  
-  $A=0; // Definimos el iterador para almacenar las asistencias.
-  $I=0; // Definimos el iterador para almacenar las inasistencias.
-  
-  // Establecemos la conexión con la base de datos :
-  
-  $conexion=mysqli_connect("localhost","root","Carlos1010*","datos_login") or die("Hubo Problemas para conectarse a la base de datos."); 
-  
-  $sql1="SELECT * FROM alumnos"; // Definimos la acción 1.
-  
-  $accion1=mysqli_query($conexion,$sql1) or die(mysqli_error($conexion)); // Ejecutamos la acción 1.
-  
-  // Establecemos la conexión con la base de datos :
-  
-  $conexion2=mysqli_connect("localhost","root","Carlos1010*","bandeja_asistencia") or die("Hubo Problemas para conectarse a la base de datos.");
-  
-  $sql2="DELETE FROM alumnos"; // Definimos la acción 2.
-  
-  $accion2=mysqli_query($conexion2,$sql2) or die(mysqli_error($conexion2)); // Ejecutamos la acción 2.
-  
-  // Convertimos la tabla "datos_login" en un arreglo y la recorremos dentro del bucle "while()" :
-  
-  while($resultados1=mysqli_fetch_array($accion1)) 
-  {
-    $id=$resultados1['id']; // Almacenamos el "id" del alumno.
-    $nombre=$resultados1['nombres']; // Almacenamos el "nombre" del alumno.
-    $apellido=$resultados1['apellidos']; // Almacenamos el "apellido" del alumno.
-    $correo_alumno=$resultados1['correo_alumno']; // Almacenamos el "correo" del alumno.
+<!DOCTYPE html>
+<html lang="es"> <!-- Definimos el idioma en español. -->
     
-    if(!isset($array_A[$A]) and !isset($array_I[$I])) // Verificamos si en la posición de los arreglos no hay ningún valor.
-    {
-      $sql3="INSERT INTO alumnos (id,nombre,apellido,correo_alumno,asistencia,inasistencia) VALUES ('$id','$nombre','$apellido','$correo_alumno','','')"; // Definimos la acción 3.
+    <head> 
       
-      $accion2=mysqli_query($conexion2,$sql3) or die(mysqli_error($conexion2)); // Ejecutamos la acción 3.
-    }
-    else // Verficamos si en la posición de los arreglos tienen un valor. 
-    {
-      $sql3="INSERT INTO alumnos (id,nombre,apellido,correo_alumno,asistencia,inasistencia) VALUES ('$id','$nombre','$apellido','$correo_alumno','$array_A[$A]','$array_I[$I]')"; // Definimos la acción 3.
-      
-      $accion2=mysqli_query($conexion2,$sql3) or die(mysqli_error($conexion2)); // Ejecutamos la acción 3.
-    }
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Asistencias Alumnos</title>
+      <link rel="stylesheet" href="CSS/bandeja_asistencia.css">
     
-    // Aumentamos los iteradores : 
-  
-    $A=$A+1;
-    $I=$I+1;
-  }
-  
-  $sql4="SELECT * FROM alumnos"; // Definimos la acción 4.
-  
-  $accion4=mysqli_query($conexion2,$sql4) or die(mysqli_error($conexion2)); // Ejecutamos la acción 4.
-  
-  $ID=[]; // Definimos el arreglo donde almacenaremos los "ID". 
-  $i=0; // Definimos el iterador.
-  
-  // Convertimos la tabla "alumnos" en un arreglo lo recorremos para almacenar los "ID" :
-  
-  while($arreglo=mysqli_fetch_array($accion4))
-  {
-    $ID[$i]=$arreglo['id'];
-    $i=$i+1; // Aumentamos el iterador.
-  }
-  
-  $_SESSION['ID']=$ID; // Almacenamos el arreglo "ID" en la variable de sesión.
-  
-  $sql5="SELECT * FROM alumnos"; // Definimos la acción 5.
-  
-  $accion5=mysqli_query($conexion2,$sql4) or die(mysqli_error($conexion2)); // Ejecutamos la acción 5.
-  
-  // Definimos el encabezado de la tabla :
-  
-  echo'<table>';
-  
-    echo'<th>';
-  
-      echo'<td>'.'&nbsp'.'ID</td>';
-      echo'<td>'.'&nbsp'.'Nombre</td>';
-      echo'<td>'.'&nbsp'.'Apellido</td>';
-      echo'<td>'.'&nbsp'.'Correo</td>';
-      echo'<td>'.'&nbsp'.'Asistencia</td>';
-      echo'<td>'.'&nbsp'.'Inasistencia</td>';
-      echo'<td>'.'&nbsp'.'% Asistencia</td>';
-      echo'<td>'.'&nbsp'.'% Inasistencia</td>';
-  
-    echo'</th>';
-  
-  echo'</table>';
-  
-  // Convertimos la tabla "alumnos" en un arreglo ,lo almacenamos en "resultados4" y recorremos el arreglo :
-  
-  while($resultados5=mysqli_fetch_array($accion5))
-  {
-    if($resultados5['asistencia']==0 and $resultados5['inasistencia']==0) // Verificamos si la asistencia y la inasistencia del alumno son igual a cero.
-    {
-      $porcentaje_A=0; // Definimos el porcetaje de la asistencia.
-      $porcentaje_I=0; // Definimos el porcentaje de la inasistencia.
-    }
-    else if($resultados5['asistencia']!=0 or $resultados5['inasistencia']!=0) // Verificamos si la asistencia o inasistencia del alumno es igual a cero.
-    {
-      $total=$resultados5['asistencia']+$resultados5['inasistencia']; // Almacenamos el total de regitros en la variable "$total".
+    </head>
+    
+    <body>
 
-      $porcentaje_A=($resultados5['asistencia']*100)/($total); // Calculamos el porcentaje de asistencias.
-  
-      $porcentaje_I=($resultados5['inasistencia']*100)/($total); // Calculamos el porcentaje de inasistencias.
-    }
-
-    // Imprimimos en pantalla los registros de la tabla "alumnos" :
-    
-    // Definimos la tabla : 
-    
-    echo'<table> 
-     
-      <tr>
-        
-        <td> '."&nbsp"."&nbsp"."&nbsp". $resultados5['id'].'</td>
-        <td> '."&nbsp"."&nbsp". $resultados5['nombre'].'</td>
-        <td> '."&nbsp"."&nbsp". $resultados5['apellido'].'</td>
-        <td> '."&nbsp". $resultados5['correo_alumno'].'</td>
-        <td> '."&nbsp". $resultados5['asistencia'].'</td>
-        <td> '."&nbsp". $resultados5['inasistencia'].'</td>
-        <td> '."&nbsp". number_format($porcentaje_A,2).'%'.'</td>
-        <td> '."&nbsp". number_format($porcentaje_I,2).'%'.'</td>
-  
-        <form action="select_bandeja.php" method="post">
-        
-          <td>'."&nbsp"."&nbsp"."&nbsp".'
-        
-          <label>Selección : 
+        <div class="container">
+          
+            <div class="header">
+              
+                <h2>Bandeja De Asistencias</h2>
+                
+                <div class="header-buttons">
+                   
+                   <a href="menu.php">Menú</a>
+                
+                </div>
             
-            <select name=verif[]>
-        
-              <option value="0">Asistente</option>
-              <option value="1">Inasistente</option>
-              <option value="nulo">No Asignar</option>
+            </div>
+
+            <div class="user-list">
+            
+                <?php 
+
+                  session_start(); 
+
+                  $array_A=[];
+                  $array_I=[];
+
+                  if(isset($_SESSION['array_A']) and isset($_SESSION['array_I'])) 
+                  {
+                    $array_A = $_SESSION['array_A'];
+                    $array_I = $_SESSION['array_I'];
+                  }
+
+                  $A=0;
+                  $I=0;
+
+                  $conexion=mysqli_connect("localhost","root","","datos_login") or die("Hubo Problemas para conectarse a la base de datos."); 
+
+                  $sql1="SELECT * FROM profe_y_alumno";
+                  $accion1=mysqli_query($conexion, $sql1) or die(mysqli_error($conexion));
+
+                  $conexion2 = mysqli_connect("localhost", "root", "", "bandeja_asistencia") or die("Hubo Problemas para conectarse a la base de datos.");
+                  $sql2="DELETE FROM alumnos";
+                  $accion2=mysqli_query($conexion2, $sql2) or die(mysqli_error($conexion2));
+
+                  while($resultados1=mysqli_fetch_array($accion1)) 
+                  {
+                    if($resultados1['accesos']==0)
+                    {
+                      $id=$resultados1['id'];
+                      $nombre=$resultados1['nombres'];
+                      $apellido=$resultados1['apellidos'];
+                      $correo_alumno=$resultados1['mail'];
+
+                      if (!isset($array_A[$A]) and !isset($array_I[$I])) 
+                      {
+                        $sql3="INSERT INTO alumnos (id, nombre, apellido, correo_alumno, asistencia, inasistencia) VALUES ('$id', '$nombre', '$apellido', '$correo_alumno', '', '')";
+                        $accion2=mysqli_query($conexion2, $sql3) or die(mysqli_error($conexion2));
+                      } 
+                      else 
+                      {
+                        $sql3="INSERT INTO alumnos (id, nombre, apellido, correo_alumno, asistencia, inasistencia) VALUES ('$id', '$nombre', '$apellido', '$correo_alumno', '$array_A[$A]', '$array_I[$I]')";
+                        $accion2=mysqli_query($conexion2, $sql3) or die(mysqli_error($conexion2));
+                      }
+
+                      $A++;
+                      $I++;
+                    }
+                          
+                  }
   
-            </select>
-          
-          </label>
+                  $sql4="SELECT * FROM alumnos";
+                  $accion4=mysqli_query($conexion2, $sql4) or die(mysqli_error($conexion2));
+
+                  $ID=[];
+                  $i=0;
+
+                  while ($arreglo = mysqli_fetch_array($accion4)) 
+                  {
+                    $ID[$i]=$arreglo['id'];
+                    $i++;
+                  }
+
+                  $_SESSION['ID'] = $ID;
+
+                  $sql5="SELECT * FROM alumnos";
+                  $accion5=mysqli_query($conexion2, $sql4) or die(mysqli_error($conexion2));
+
+                  echo'<table>';
+                     
+                  echo'<tr>';
+                          
+                    echo'<th>ID</th>';
+                    echo'<th>Nombre</th>';
+                    echo'<th>Apellido</th>';
+                    echo'<th>Correo</th>';
+                    echo'<th>Asistencia</th>';
+                    echo'<th>Inasistencia</th>';
+                    echo'<th>% Asistencia</th>';
+                    echo'<th>% Inasistencia</th>';
+                    echo'<th>Selección</th>';
+                        
+                  echo'</tr>';
+
+                  while($resultados5=mysqli_fetch_array($accion5)) 
+                  {
+                          
+                    if($resultados5['asistencia']==0 and $resultados5['inasistencia']==0) 
+                    {
+                      $porcentaje_A=0;
+                      $porcentaje_I=0;
+                    } 
+                    else 
+                    {
+                      $total=$resultados5['asistencia']+$resultados5['inasistencia'];
+                      $porcentaje_A=($resultados5['asistencia']*100)/($total);
+                      $porcentaje_I=($resultados5['inasistencia']*100)/($total);
+                    }
+
+                    echo'<tr>';
+                              
+                      echo'<td>' . $resultados5['id'] . '</td>';
+                      echo'<td>' . $resultados5['nombre'] . '</td>';
+                      echo'<td>' . $resultados5['apellido'] . '</td>';
+                      echo'<td>' . $resultados5['correo_alumno'] . '</td>';
+                      echo'<td>' . $resultados5['asistencia'] . '</td>';
+                      echo'<td>' . $resultados5['inasistencia'] . '</td>';
+                      echo'<td>' . number_format($porcentaje_A, 2) . '%</td>';
+                      echo'<td>' . number_format($porcentaje_I, 2) . '%</td>';
+                                
+                      echo'<td>
+                              
+                        <form action="select_bandeja.php" method="post">
+                                  
+                          <select name="verif[]">
+                                          
+                            <option value="0">Asistente</option>
+                            <option value="1">Inasistente</option>
+                            <option value="nulo">No Asignar</option>
+                                        
+                          </select>
+                                  
+                      </td>';
+                            
+                    echo '</tr>';
+                  }
+
+                  echo'</table>';
+                   
+                  echo'<div class="action-buttons">';
+                       
+                    echo'<button type="submit">Registrar</button>';
+                    echo'<button type="submit" name="vaciar" value="Vaciar">Vaciar Registro</button>';
+                       
+                    echo'</form>'; // Cierre del formulario.
+                    
+                  echo'</div>';
+                
+                ?>
         
-        </td>
-          
-      </tr>
+            </div>
     
-    </table>';
-  
-  }
-  
-  echo'<br>'."&nbsp".
-  
-    '<input type="submit" value="Registrar">'."&nbsp"."&nbsp".'<input type="submit" name="vaciar" value="Vaciar Registro">
-  
-  </form>'; // Cierre del formulario.
+        </div>
 
-  echo'<a href="menu.php"><button>Regresar al menú</button></a>'; // Imprimimos el botón para redireccionar al menú.
+    </body>
 
-  mysqli_close($conexion) or die("Hubo Problemas para cerrar la conexión con la base de datos."); // Cerramos la "$conexion" de la base de datos.
-  mysqli_close($conexion2) or die("Hubo Problemas para cerrar la conexión con la base de datos."); // Cerramos la "$conexion2" de la base de datos.
-
-?>
+</html>
