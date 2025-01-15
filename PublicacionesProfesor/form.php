@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: url('./imagenes/usm_fondo.png') no-repeat center center fixed;
+            background: url('imagenes/pito.jpg') no-repeat center center fixed;
             background-size: cover;
             margin: 0;
             padding: 0;
@@ -162,6 +162,8 @@
 
         <?php 
 
+        // Iniciar la sesión
+
         // Asegurarse de que user_id está configurado
         $_SESSION['user_id'] ??= '';
         echo "ID de usuario asignado: " . $_SESSION['user_id'];
@@ -170,15 +172,15 @@
         $conexion_login = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos."); 
 
         $id = $_SESSION['user_id'];
-        $result = mysqli_query($conexion_login, "SELECT * FROM alumnos WHERE id='$id'");
-        $datos = mysqli_fetch_array($result); // Usar mysqli_fetch_array para obtener los datos como un array asociativo
+        $result = mysqli_query($conexion_login, "SELECT * FROM profe_y_alumno WHERE id='$id'");
+        $datos = mysqli_fetch_assoc($result); // Usar mysqli_fetch_array para obtener los datos como un array asociativo
 
         // Mostrar comentarios de otras personas
         echo "<div id='comments' class='comment-container'>";
         $conn = mysqli_connect("localhost", "root", "", "bandeja_comentarios") or die("Error al conectarse a la base de datos.");
         $resultado = mysqli_query($conn, 'SELECT * FROM comentarios ORDER BY fecha DESC');
 
-        while ($reg = mysqli_fetch_array($resultado)) {   
+        while ($reg = mysqli_fetch_assoc($resultado)) {   
             echo "<div>";
             echo "<p class='comment-name'>" . htmlspecialchars($reg['nombre']) . "</p>";
             echo "<p class='comment-date'><em>" . htmlspecialchars($reg['fecha']) . "</em></p>";
