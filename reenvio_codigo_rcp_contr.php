@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: white;
         }
         .container {
-            background: rgba(255, 255, 255, 0.8); /* Fondo blanco traslúcido para mejor legibilidad */
+            background: rgba(0, 0, 0, 0.7); /* Fondo blanco traslúcido para mejor legibilidad */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             padding: 30px;
