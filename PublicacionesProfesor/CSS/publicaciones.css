@@ -1,96 +1,143 @@
-body{
+/* Interfaz para el archivo "menu_index.php" : */
 
-    font-family:sans-serif;
-    margin:0;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('imagenes/pito.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: white;
 }
 
-header{
-    
-    display:flex;
-    height:80px;
-    background-color:cornflowerblue;
-    justify-content:space-evenly;
-    align-items:center;
-    padding:10px;
+.header {
+    background: rgba(0, 123, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeIn 1s;
+    margin-bottom: 20px;
 }
 
-.logo{
-    
-    display:flex;
+.header-content {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+     margin-bottom: 5px; 
+     flex-direction: row; /* Añadido para disposición horizontal */
 }
 
-.logo img{
+.header-content img {
+    height: 70px;
+}
 
-    width:170px; 
-    height:150px;
+.header-content .welcome-message {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.header-content .date {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.main_container {
+    width: 80%;
+    max-width: 900px; /* Aumentar el ancho máximo */
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    animation: fadeIn 1s;
+}
+
+form, .buttons {
+    margin-bottom: 20px;
+}
+
+label, select, input[type="submit"], a>button{
+    display: inline-block;
+    margin: 5px 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+label{
+    font-weight: bold;
+    color:rgba(0, 0, 0, 0.788);
 }
 
 select{
-
-    background-color:gold;
-    border-color:black;
-    border-width:2px;
-    border-style:outset;
+    background-color: rgba(0, 86, 179, 0.7);
+    color: white;
 }
 
-input{
-
-    background-color:gold;
+input[type="submit"]{
+    background-color: rgba(0, 123, 255, 0.7);
+    color: white;
 }
 
-button{
-
-    background-color:gold;
-}
-
-.imagen_fondo{
-    
-    height:650px;
-    width:1358px;
-    margin:0px;
-    background-image:url(Imagenes/Campus_Santa_Maria.jpg);
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-position:center;
-
-}
-
-#main_container{
-
-    margin:150px auto;
-    width:600px;
+input[type="submit"]:hover, a > button:hover, select:hover {
+    background-color: rgba(0, 68, 148, 0.7);
 }
 
 table{
-
-    width:100%;
-    background-color:lightgray;
-    text-align:left;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-th,td{
-
-    border: solid 1px black;
-    padding:15px;
-    border-collapse:collapse;
+table, th, td {
+    border: 1px solid rgba(0, 123, 255, 0.7); /* Cambio de color */
 }
 
-thead{
+th, td{
+    padding: 10px;
+    text-align: left;
+}
 
-    background-color:dodgerblue;
-    border-bottom: solid 5px;
+th{
+    background: rgba(0, 123, 255, 0.9);
+    color: white;
+}
+
+td {
+    background: rgba(0, 86, 179, 0.7); /* Fondo de celda */
+    color: white; /* Color de texto */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.menu{
+
+    background-color: rgba(0, 68, 148, 0.7);
+    color:white;
+}
+
+.enlaces{
+
     color:black;
-    font-family:inherit;
-    text-align:center;
 }
 
-tr:hover td{
-
-    background-color:linen;
-    color:black;
+.enlaces:hover{
+    
+    color:blue;
 }
 
-a{
+.table_head{
 
-    color:black;
+    color:rgba(0, 0, 0, 0.815);
 }
