@@ -17,7 +17,7 @@ if (isset($_POST['coment'])) {
     $conexion = mysqli_connect("localhost", "root", "", "datos_login") or die("Error al conectarse a la base de datos.");
 
     // Obtener nombres y apellidos del usuario
-    $reg = mysqli_query($conexion, "SELECT nombres, apellidos FROM alumnos WHERE id='$id'");
+    $reg = mysqli_query($conexion, "SELECT nombres, apellidos FROM profe_y_alumno WHERE id='$id'");
     $datos = mysqli_fetch_assoc($reg);  // Usar mysqli_fetch_assoc para obtener los datos como un array asociativo
 
     // Verificar que $datos no sea nulo antes de intentar acceder a sus elementos
