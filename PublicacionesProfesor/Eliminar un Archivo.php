@@ -4,8 +4,12 @@
 
    $verifArchivo=file_exists("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo"); // Verificamos que el archivo exista.
    
-   if($verifArchivo)
+   $archivo_eliminar="publicaciones/".$nombreArchivo; // Almacenamos la ruta y el nombre del archivo a eliminar.
+
+   if($verifArchivo) // Verificamos si el archivo existe.
    {
+      include("publicaciones_eliminadas.php"); // Incluimos el archivo "publicaciones_eliminadas.php".
+      
       $eliminar=unlink("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo"); // Eliminamos el archivo.
       
       if($eliminar) // Verificamos si el archivo se elimino correctamente.

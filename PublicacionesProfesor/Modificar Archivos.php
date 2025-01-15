@@ -6,7 +6,9 @@
    if($opcion=="Cambiar Nombre") // Verificamos si la opción seleccionada es "Cambiar Nombre".
    {
       $new_name=$_POST['new']; // Guardamos el nuevo nombre del archivo.
-
+      
+      include("publicaciones_editadas.php"); // Incluimos el archivo "publicaciones_editadas.php".
+      
       $editar=rename("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo","C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$new_name");
    
       if($editar) // Verificamos si el archivo se modificó correctamente.
