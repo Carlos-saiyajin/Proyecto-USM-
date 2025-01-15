@@ -8,7 +8,7 @@ $tiempo_actual = time();
 $tiempo_expiracion = 1 * 60;
 
 if (($tiempo_actual - $tiempo_creacion) > $tiempo_expiracion) {
-    $_SESSION['mensaje'] = "El código de confirmación ha expirado.";
+    $_SESSION['mensaje_correo'] = "El código de confirmación ha expirado.";
     $_SESSION['mensaje_tipo'] = "error";
     unset($_SESSION['codigo_confirmacion']);
     unset($_SESSION['tiempo_creacion']);
