@@ -20,7 +20,7 @@ function restrictUser($userId, $restrict) {
     if(isset($_SESSION['user_id'])){    
 
     // Actualizar estado de restricción
-    $sql = "UPDATE alumnos SET restringido = $restrict WHERE id = $userId";
+    $sql = "UPDATE profe_y_alumno SET restringido = $restrict WHERE id = $userId";
     
     if ($conn->query($sql) === TRUE) {
         echo "Usuario actualizado correctamente.";
