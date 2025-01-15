@@ -12,10 +12,10 @@
       {  
          date_default_timezone_set("America/Caracas"); // Definimos la zona horaria.
          
-         $fecha_completa=date("d \/ m \/ Y"); // Guardamos la fecha actual del sistema en la variable "fecha_completa".
-         
-         // $_SESSION['fecha']=$fecha_completa;
-         // $_SESSION['nombre_archivo']="publicaciones/".$nombreArchivo;
+         $fecha=date("d \/ m \/ Y")."/"; // Guardamos la fecha actual del sistema en la variable "fecha".
+         $hora=date("H\:i"); // Guardamos la hora actual del sistema en la variable "hora".
+
+         $fecha_completa=$fecha." Hora ".$hora; // Guardamos la fecha completa en la que se subió el archivo a publicar.
          
          $archivo_subido="publicaciones/".$nombreArchivo; // Almacenamos la ruta y el nombre del archivo subido.
 
