@@ -35,4 +35,5 @@
 .button:hover{
     
     background-color: rgba(0, 68, 148, 0.7);
+    color:none;
 }
