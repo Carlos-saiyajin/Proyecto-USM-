@@ -2,14 +2,14 @@
 
 session_start(); // LLamamos a la función "session_start()" para utilizar las variables de sesión.
 
-if((!isset($_POST['vaciar'])) and (!isset($_POST['si'])) and (!isset($_POST['no']))) // Verificamos si no se presionó el botón "Vaciar Registro" y los botones "si" y "no".
+if((!isset($_POST['vaciar'])) and (!isset($_POST['si'])) and (!isset($_POST['no']))) 
 {
    $asistencias=$_POST['verif']; // Almacenamos las asistencias y inasistencias.
    $ID=$_SESSION['ID']; // Almacenamos los ID de los alumnos asistentes y inasistentes.
 
    // Establecemos la conexión con la base de datos :
 
-   $conexion=mysqli_connect("localhost","root","Carlos1010*","bandeja_asistencia") or die("Hubo Problemas para conectarse a la base de datos.");
+   $conexion=mysqli_connect("localhost","root","","bandeja_asistencia") or die("Hubo Problemas para conectarse a la base de datos.");
 
    $sql1="SELECT * FROM alumnos"; // Definimos la acción 1.
 
@@ -23,36 +23,36 @@ if((!isset($_POST['vaciar'])) and (!isset($_POST['si'])) and (!isset($_POST['no'
    while($resultados1=mysqli_fetch_array($accion1))
    {
       if($ID[$j]==$resultados1['id']) // Verificamos que el "ID" sea igual al "id" de la tabla.
-      { 
+      {
         if($asistencias[$i]=="nulo" and $resultados1['asistencia']==0)
         {
-            $nuevo_valor=0;
- 
-            $sql7="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$j]'";
- 
-            $accion7=mysqli_query($conexion,$sql7) or die(mysqli_error($conexion));
+           $nuevo_valor=0;
+
+           $sql7="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$j]'";
+
+           $accion7=mysqli_query($conexion,$sql7) or die(mysqli_error($conexion));
         }
         else if($asistencias[$i]=="nulo" and $resultados1['inasistencia']==0)
         {
-            $nuevo_valor=0;
- 
-            $sql8="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$j]'";
- 
-            $accion8=mysqli_query($conexion,$sql8) or die(mysqli_error($conexion));
+           $nuevo_valor=0;
+
+           $sql8="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$j]'";
+
+           $accion8=mysqli_query($conexion,$sql8) or die(mysqli_error($conexion));
         }
         else if($asistencias[$i]=="nulo" and $resultados1['asistencia']!=0)
         {
-            $nuevo_valor=$resultados1['asistencia'];
- 
-            $sql9="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$j]'";
- 
-            $accion9=mysqli_query($conexion,$sql9) or die(mysqli_error($conexion));
+           $nuevo_valor=$resultados1['asistencia'];
+
+           $sql9="UPDATE alumnos SET asistencia='$nuevo_valor' WHERE id='$ID[$j]'";
+
+           $accion9=mysqli_query($conexion,$sql9) or die(mysqli_error($conexion));
         }
         else if($asistencias[$i]=="nulo" and $resultados1['inasistencia']!=0)
         {
-            $nuevo_valor=$resultados1['inasistencia'];
- 
-            $sql10="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$j]'";
+           $nuevo_valor=$resultados1['inasistencia'];
+
+           $sql10="UPDATE alumnos SET inasistencia='$nuevo_valor' WHERE id='$ID[$j]'";
         }
         else if($asistencias[$i]==0 and $resultados1['asistencia']==0) // Verificamos si el alumno estuvo asistente y si no tiene asistencias registradas.
         {
@@ -86,9 +86,9 @@ if((!isset($_POST['vaciar'])) and (!isset($_POST['si'])) and (!isset($_POST['no'
 
            $accion5=mysqli_query($conexion,$sql5) or die(mysqli_error($conexion)); // Ejecutamos la acción 5.
         }
-       
+        
         $i=$i+1; // Aumentamos los iteradores.
-        $j=$j+1; // Aumentamos los iteradores.
+        $j=$j+1; // Aumentamos los iteradores
      }
 
    }
@@ -119,12 +119,12 @@ if((!isset($_POST['vaciar'])) and (!isset($_POST['si'])) and (!isset($_POST['no'
    $_SESSION['array_A']=$array_A; // Alamacenamos las asisencias registradas dentro de la variable de sesión "array_A".
    $_SESSION['array_I']=$array_I; // Alamacenamos las inasistencias registradas dentro de la variable de sesión "array_I".
    
-   mysqli_close($conexion) or die("Hubo Problemas para cerrar la conexión con la base de datos."); // Cerramos sesión con la base de datos.
+   mysqli_close($conexion); 
 
    header("Location: bandeja_asistencia.php"); // Redireccionamos a la página "bandeja_asistencia.php".
 }
 
-if(isset($_POST['vaciar'])) // Verficamos si se presionó el botón "Vaciar Registro".
+/*if(isset($_POST['vaciar']))
 {
    // Solicitamos la validación para vaciar el registro de las asistencias :
 
@@ -134,7 +134,75 @@ if(isset($_POST['vaciar'])) // Verficamos si se presionó el botón "Vaciar Regi
 
      <input type="submit" name="si" value="Si">
      <input type="submit" name="no" value="NO"> 
+         
+   </form>';
+
+} */
+
+if(isset($_POST['vaciar'])){
+   
+   // Solicitamos la validación para vaciar el registro de las asistencias:
+   
+   echo '<style>
       
+      body{
+        
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: url("imagenes/usm_fondo.png") no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        color: white;
+
+      }
+
+      .vaciar-form{
+         
+         background: rgba(0, 0, 0, 0.5);
+         padding: 20px;
+         border-radius: 8px;
+         color: white;
+         margin: 20px 0;
+      }
+
+      .vaciar-form p{
+       
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-align: center;
+      
+      }
+
+      .action-buttons {
+         display: flex;
+         gap: 10px;
+         justify-content: center;
+      }
+
+      .button {
+        background-color: rgba(0, 86, 179, 0.7);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .button:hover {
+       background-color: rgba(0, 68, 148, 0.7);
+      }
+   </style>
+
+   <form action="select_bandeja.php" method="post" class="vaciar-form">
+     <p> ¿ Desea Vaciar el registro ? </p>
+     <div class="action-buttons">
+       <input type="submit" name="si" value="Si" class="button">
+       <input type="submit" name="no" value="NO" class="button">
+     </div>
    </form>';
 }
 
@@ -142,7 +210,7 @@ if(isset($_POST['si']))
 {
   // Establecemos la conexión con la base de datos : 
   
-  $conexion=mysqli_connect("localhost","root","Carlos1010*","bandeja_asistencia") or die("Hubo Problemas para conectarse a la base de datos.");
+  $conexion=mysqli_connect("localhost","root","","bandeja_asistencia") or die("Hubo Problemas para conectarse a la base de datos.");
   
   $asistencia=0;
   $inasistencia=0;
