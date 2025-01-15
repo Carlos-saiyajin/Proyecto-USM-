@@ -9,6 +9,8 @@
    if($verifArchivo) // Verificamos si el archivo existe.
    {
       include("publicaciones_eliminadas.php"); // Incluimos el archivo "publicaciones_eliminadas.php".
+
+      echo"hola mundo";
       
       $eliminar=unlink("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/publicaciones/$nombreArchivo"); // Eliminamos el archivo.
       
