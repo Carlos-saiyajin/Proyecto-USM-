@@ -9,6 +9,9 @@ use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    
+
     // Datos del formulario
     $nombres = $_POST['nombres'];
     $apellidos = $_POST['apellidos'];
@@ -18,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefono = $_POST['telefono'];
     $usuario = $_POST['usuario'];
     $contrasenia = md5($_POST['contrasenia']);
+
 
     $nombre = 'Codigo de confirmacion';
     $email = htmlspecialchars(trim($_POST['mail']));
@@ -29,6 +33,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $_SESSION['tiempo_creacion'] = $tiempo_creacion;
     $_SESSION['tiempo_expiracion'] = $tiempo_expiracion;
+
+
+    $verificacion_registro = "SELECT * FROM `profe_y_alumno` WHERE mail='$mail'";
+    $resultado_registro = mysqli_query($conn, $verificacion_registro);
+
+    if (mysqli_num_rows($resultado_registro) == 0) {
+        $_SESSION['mensaje_correo'] = "Este correo no está registrado en terna, intente con otro.";
+
+        header("Location: registrarse.php");
+        exit();
+    }
+
 
     //validaciones datos repetidos
     $consulta_mail= "SELECT * FROM `registro` WHERE mail='$mail'";

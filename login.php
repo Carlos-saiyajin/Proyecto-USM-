@@ -121,33 +121,28 @@
 
             if ($reg = mysqli_fetch_assoc($resultado)) {
 
-                $profesor = "SELECT * FROM `profesores` WHERE correo_profe=?";
-                $stmt_profesor = mysqli_prepare($conn, $profesor);
-                mysqli_stmt_bind_param($stmt_profesor, 's', $mail);
-                mysqli_stmt_execute($stmt_profesor);
-                $verificacion_profesor = mysqli_stmt_get_result($stmt_profesor);
-                $reg_profesor= mysqli_fetch_assoc($verificacion_profesor);
+                $terna = "SELECT * FROM `profe_y_alumno` WHERE mail=?";
+                $stmt_terna = mysqli_prepare($conn, $terna);
+                mysqli_stmt_bind_param($stmt_terna, 's', $mail);
+                mysqli_stmt_execute($stmt_terna);
+                $verificacion_terna = mysqli_stmt_get_result($stmt_terna);
+                $reg_terna= mysqli_fetch_assoc($verificacion_terna);
 
-                $alumno = "SELECT * FROM `alumnos` WHERE correo_alumno=?";
-                $stmt_alumno = mysqli_prepare($conn, $alumno);
-                mysqli_stmt_bind_param($stmt_alumno, 's', $mail);
-                mysqli_stmt_execute($stmt_alumno);
-                $verificacion_alumno = mysqli_stmt_get_result($stmt_alumno);
-                $reg_alumno= mysqli_fetch_assoc($verificacion_alumno);
+            
 
-                if (mysqli_num_rows($verificacion_profesor) > 0) {
-                    $_SESSION['user_id'] = $reg_profesor['id'];
-                    header("Location: PublicacionesProfesor");
+                if ($reg_terna['accesos']== 1) {
+                    $_SESSION['user_id'] = $reg_terna['id'];
+                    header("Location: PublicacionesProfesor/menu.php");
                     exit();
                 }
 
-                if (mysqli_num_rows($verificacion_alumno) > 0) {
-                    $_SESSION['user_id'] = $reg_alumno['id'];
-                    header("Location: parte_alumnos");
+                if ($reg_terna['accesos']== 0) {
+                    $_SESSION['user_id'] = $reg_terna['id'];
+                    header("Location: parte_alumnos/menu.php");
                     exit();
                 }
 
-                if (mysqli_num_rows($verificacion_profesor) <= 0 && mysqli_num_rows($verificacion_alumno) <= 0) {
+                if (mysqli_num_rows($verificacion_terna) <= 0) {
                     $error_message = 'Usted no está en la base de datos de profesores ni de estudiantes';
                     $db_delete = "DELETE * FROM `registro` WHERE mail='$mail' ";
                     $query_db = mysqli_query($conn, $db_delete);
