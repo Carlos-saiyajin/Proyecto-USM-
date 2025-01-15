@@ -1,7 +1,5 @@
 <?php
 
-echo"hola mundo";
-
    $opcion=$_POST['opcion']; // Guardamos la opción seleccionada.
    $nombreArchivo=$_POST['file']; // Guardamos el nombre anterior del archivo.
    
