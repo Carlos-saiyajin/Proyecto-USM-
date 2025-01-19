@@ -1,17 +1,24 @@
-<form action="Modificar Archivos.php" method="post">
+<div class="header">
+        <div class="header-content">
+            <img src="imagenes/Logo_USM_Horizontal.png" alt="Logo">
+            <p class="titulo">Universidad Santa Maria</p>
+            <p class="titulo">Periodo: 2024-2025</p>
+        </div>
+    </div>
 
-  Opción elegida :
-  <input type="text" name="opcion" value="<?php echo htmlspecialchars($opcion);?>">
-  <br><br>
+    <div class="main_container">
+        <div class="solicitud">
+        <form action="Modificar Archivos.php" method="post">
 
-  Nombre anterior del archivo :
-  <input type="text" name="file" value="<?php echo htmlspecialchars($nombreArchivo);?>">
-  <br><br>
+<p>Opción elegida : <br><br><input class="button" type="text" name="opcion" value="<?php echo htmlspecialchars($opcion);?>"></p>
 
-  Ingrese el nuevo nombre del archivo :
-  <input type="text" name="new" required>
-  <br><br>
+<p>Nombre anterior del archivo : <br><br><input class="button" type="text" name="file" value="<?php echo htmlspecialchars($nombreArchivo);?>"></p>
 
-  <input type="submit" value="Editar">
+<p>Ingrese el nuevo nombre del archivo : <br><br><input class="button" type="text" name="new" required></p>
+
+<input class="button" type="submit" value="Editar">
 
 </form>
+
+  </div>
+</div>

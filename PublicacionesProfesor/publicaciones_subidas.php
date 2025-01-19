@@ -2,11 +2,22 @@
   
   $arreglo_archivos=[]; // Declaramos el arreglo donde se almacenarán los archivos subidos.
   $arreglo_fechas=[]; // Declaramos el arreglo donde se almacenarán las fechas de los archivos subidos.
-
+  
   $i=null; // Declaramos el iterador que me guardará el número de archivos subidos.
- 
+  
+  /* Recorremos la carpeta "publicaciones" de la parte de alumno para eliminar los archivos y refrescar la carpeta con los 
+    archivo subidos, eliminados o editados :
+  */
+  
+  foreach(glob("C:/wamp64/www/proyecto_USM/parte_alumnos/publicaciones/*.*") as $archivo)
+  {
+    unlink($archivo); // Eliminamos el archivo.
+  }
+  
   foreach(glob("publicaciones/*.*") as $archivo) // Recorremos la carpeta "publicaciones" para obetener el número total de archivos subidos.
   { 
+    copy("C:/wamp64/www/proyecto_USM/PublicacionesProfesor/".$archivo,"C:/wamp64/www/proyecto_USM/parte_alumnos/".$archivo); // Copiamos el archivo a la carpeta "publicaciones" de parte de alumno.
+
     $i++; // Aumentamos el iterador.
   } 
 

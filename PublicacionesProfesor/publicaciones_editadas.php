@@ -17,10 +17,15 @@
   }
 
   /* Recorremos la carpeta "Public". para eliminar el archivo "publicaciones.txt" y de esta forma crear un archivo nuevo que 
-    contenga los archivos subidos con el nuevo nombre del archivo editado : 
+    contenga los archivos subidos con el nuevo nombre del archivo editado, lo mismo con la parte de alumno : 
   */
 
   foreach(glob("Public/*.*") as $archivo) 
+  {
+    unlink($archivo); // Eliminamos el archivo mencionado.
+  }
+
+  foreach(glob("C:/wamp64/www/proyecto_USM/parte_alumnos/Public/*.*") as $archivo) 
   {
     unlink($archivo); // Eliminamos el archivo mencionado.
   }
@@ -42,7 +47,13 @@
         fwrite($archivo1,$arreglo_nuevo[$i]."\n"); // Agregamos el archivo.
                
       fclose($archivo1); // Cerramos el archivo "publicaciones.txt".
+      
+      $archivo1=fopen("C:/wamp64/www/proyecto_USM/parte_alumnos/Public/publicaciones.txt","w+"); // Abrimos el archivo "publicaciones.txt".
    
+        fwrite($archivo1,$arreglo_nuevo[$i]."\n"); // Agregamos el archivo.
+               
+      fclose($archivo1); // Cerramos el archivo "publicaciones.txt".
+
       $i++; // Aumentamos el iterador.
     }
     else if($i==0 and $arreglo_nuevo[$i]==$archivo_select) // Verificamos si "$i" es igual a 0 y si el archivo editado es igual al primer archivo que se publicó.
@@ -52,7 +63,13 @@
         fwrite($archivo1,$archivo_editado."\n"); // Agregamos en el archivo "publicaciones.txt" el segundo archivo que se publicó.
                
       fclose($archivo1); // Cerramos el archivo "publicaciones.txt".
+      
+      $archivo1=fopen("C:/wamp64/www/proyecto_USM/parte_alumnos/Public/publicaciones.txt","w+"); // Abrimos el archivo "publicaciones.txt".
    
+        fwrite($archivo1,$archivo_editado."\n"); // Agregamos en el archivo "publicaciones.txt" el segundo archivo que se publicó.
+               
+      fclose($archivo1); // Cerramos el archivo "publicaciones.txt".
+
       $i++; // Aumentamos el iterador.
     } 
     else if($i!=0) // Verificamos si "$i" es diferente de 0.
@@ -64,12 +81,24 @@
           fwrite($archivo1,$archivo_editado."\n"); // Agregamos el archivo.
                
         fclose($archivo1); // Cerramos el archivo "publicaciones.txt".
-   
+        
+        $archivo1=fopen("C:/wamp64/www/proyecto_USM/parte_alumnos/Public/publicaciones.txt","a+"); // Abrimos el archivo "publicaciones.txt". 
+                
+          fwrite($archivo1,$archivo_editado."\n"); // Agregamos el archivo.
+               
+        fclose($archivo1); // Cerramos el archivo "publicaciones.txt".
+
         $i++; // Aumentamos el iterador.
       }
       else if(isset($arreglo_nuevo[$i]) and $arreglo_nuevo[$i]!=$archivo_select) // Verificamos si en la posición del arreglo contiene algún valor y si el archivo publicado es diferente al archivo editado.
       {
         $archivo1=fopen("Public/publicaciones.txt","a+"); // Abrimos el archivo "publicaciones.txt". 
+                
+          fwrite($archivo1,$arreglo_nuevo[$i]."\n"); // Agregamos el archivo.
+               
+        fclose($archivo1); // Cerramos el archivo "publicaciones.txt".
+        
+        $archivo1=fopen("C:/wamp64/www/proyecto_USM/parte_alumnos/Public/publicaciones.txt","a+"); // Abrimos el archivo "publicaciones.txt". 
                 
           fwrite($archivo1,$arreglo_nuevo[$i]."\n"); // Agregamos el archivo.
                

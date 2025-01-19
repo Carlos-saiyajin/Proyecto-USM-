@@ -1,2 +1,5 @@
-publicaciones/Programa (Numeros Perfectos).txt
-publicaciones/Public2.txt
+publicaciones/Public1.txt
+publicaciones/programacion poo.txt
+publicaciones/NumerosPerfectos.txt
+publicaciones/publicacion2.txt
+publicaciones/Diagrama De Flujo (Profesor) - Login (Nuevo).pdf

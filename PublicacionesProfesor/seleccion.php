@@ -122,6 +122,8 @@
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+
+                    if($row['accesos'] == 0){
                     echo "<div class='user-card'>";
                     echo "<p><span>Usuario:</span> " . htmlspecialchars($row["nombres"]) . " (" . htmlspecialchars($row["id"]) . ") - ";
                     switch ($row["restringido"]) {
@@ -139,6 +141,7 @@
                     echo "<button type='submit' name='restrict' value='0'>Quitar Restricción</button>";
                     echo "</form>";
                     echo "</div>";
+                }
                 }
             }
 

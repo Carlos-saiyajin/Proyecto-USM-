@@ -1,42 +1,24 @@
-<!DOCTYPE html>
-<html lang="es"> <!-- Definimos el idioma en español -->
-  
-  <!-- Definimos el encabezado de la página : -->
-  
-  <head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificación Archivo</title>
-  
-  </head>
-  
-  <!-- Definimos el cuerpo de la página : -->
-  
-  <body>
-    
-    <!-- Definimos el formulario : -->
+<div class="header">
+        <div class="header-content">
+            <img src="imagenes/Logo_USM_Horizontal.png" alt="Logo">
+            <p class="titulo">Universidad Santa Maria</p>
+            <p class="titulo">Periodo: 2024-2025</p>
+        </div>
+    </div>
 
-    <form action="Modificar Archivos.php" method="post">
+    <div class="main_container">
+        <div class="solicitud">
+        <form action="Modificar Archivos.php" method="post">
 
-      Opción elegida :
-      <input type="text" name="opcion" value="<?php echo htmlspecialchars($opcion);?>">
-      <br><br>
+<p>Opción elegida : <br><br><input class="button" type="text" name="opcion" value="<?php echo htmlspecialchars($opcion);?>"></p>
 
-      Nombre del archivo a editar :
-      <input type="text" name="file" value="<?php echo htmlspecialchars($nombreArchivo);?>">
-      <br><br>
+<p>Nombre del archivo a editar : <br><br><input class="button" type="text" name="file" value="<?php echo htmlspecialchars($nombreArchivo);?>"></P>
 
-      Ingrese el texto a agregar :
-      <br><br>
+<p>Ingrese el texto a agregar : <br><br><textarea class="button" rows="30" cols="70" type="text" name="texto" required></textarea></p>
 
-      <textarea name="texto" rows="10" cols="50"></textarea>
-      <br><br>
+<input class="button" type="submit" value="Editar">
 
-      <input type="submit" value="Editar">
+</form>
 
-    </form>
-  
-  </body>
-
-</html>
+    </div>
+</div>

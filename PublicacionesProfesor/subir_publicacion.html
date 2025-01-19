@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="es"> <!-- Definimos el idioma en español. -->
-   
-   <!-- Definimos el encabezado de nuestra página : -->
-   <head>
-      <title>Subir Publicacion:</title>
-      <style>
-         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Publicación</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
-         body {
+        body {
             font-family: 'Poppins', sans-serif;
             background: url('imagenes/pito.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -17,147 +17,112 @@
             flex-direction: column;
             min-height: 100vh;
             color: white;
-         }
+        }
 
-         .header {
+        .header {
             background: rgba(0, 123, 255, 0.9);
-            padding: 5px 10px;
+            padding: 10px 20px;
             border-radius: 8px;
             width: 100%;
             box-sizing: border-box;
             animation: fadeIn 1s;
             margin-bottom: 20px;
-         }
+        }
 
-         .header-content {
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            margin-bottom: 5px; 
-            flex-direction: row; /* Añadido para disposición horizontal */
-         }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-         .header-content img {
-            height:20px;
-         }
+        .header-content img {
+            height: 75px;
+        }
 
-         .header-content .welcome-message {
-            font-size: 1.4em;
+        .header-content p {
+            font-size: 1.2em;
             font-weight: bold;
-            margin: 10px 0;
-         }
+        }
 
-         .header-content .date {
-            font-size: 1.3em;
-            font-weight: bold;
-         }
-
-         .main_container {
-            width: 40%;
-            max-width: 500px; /* Aumentar el ancho máximo */
+        .main_container {
+            width: 60%;
             background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             margin: 20px auto;
             animation: fadeIn 1s;
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; /* Centrar verticalmente */
-            align-items: center; /* Centrar horizontalmente */
-            text-align: center; /* Centrar el texto */
-         }
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-         form, .buttons {
+        .solicitud img {
+            max-width: 100%;
+            height: auto;
             margin-bottom: 20px;
-         }
+        }
 
-         label, select, input[type="submit"], a>button{
-            display: inline-block;
-            margin: 5px 0;
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-         }
+        .solicitud h3 {
+            margin-bottom: 20px;
+            color: rgba(0, 0, 0, 0.788);
+        }
 
-         label{
-            font-weight: bold;
-            color:rgba(0, 0, 0, 0.788);
-         }
+        .formulario {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-         select{
-            background-color: rgba(0, 86, 179, 0.7);
-            color: white;
-         }
+        .formulario input[type="file"] {
+            display: block;
+            margin: 0 auto 20px auto;
+        }
 
-         input[type="submit"]{
+        .formulario input[type="submit"] {
             background-color: rgba(0, 123, 255, 0.7);
             color: white;
-         }
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 auto;
+            display: block;
+        }
 
-         input[type="submit"]:hover, a > button:hover, select:hover {
+        .formulario input[type="submit"]:hover {
             background-color: rgba(0, 68, 148, 0.7);
-         }
+        }
 
-         table{
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-         }
-
-         table, th, td {
-            border: 1px solid rgba(0, 123, 255, 0.7); /* Cambio de color */
-         }
-
-         th, td{
-            padding: 10px;
-            text-align: left;
-         }
-
-         th{
-            background: rgba(0, 123, 255, 0.9);
-            color: white;
-         }
-
-         td {
-            background: rgba(0, 86, 179, 0.7); /* Fondo de celda */
-            color: white; /* Color de texto */
-         }
-
-         @keyframes fadeIn {
+        @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-         }
-      </style>
-   </head>
-   
-   <!-- Definimos el formulario para solicitar el archivo a publicar : -->
-   <body>
-      <div class="header">
-         <div class="header-content">
+        }
+
+        input{
+            color:black;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <img src="imagenes/Logo_USM_Horizontal.png" alt="Logo">
             <p>Universidad Santa Maria</p>
-            <div class="imagen">
-               <img src=""/>
-            </div>
-            <p>Periodo : 2024-2025</p>
-         </div>
-      </div>
-      
-      <div class="main_container">
-         
-         <div>
-            <img src="CSS/imagenes/logo_usm.png"/>
-         </div>
-         <div class="solicitud">
+            <p>Periodo: 2024-2025</p>
+        </div>
+    </div>
+
+    <div class="main_container">
+        <div class="solicitud">
             <h3>Seleccione el archivo a publicar :</h3>
             <form action="upload.php" method="post" enctype="multipart/form-data" class="formulario">
-               <input type="file" name="archivo" class="inputfile">
-               <br><br>
-               <input type="submit" value="Subir Archivo">
+                <input type="file" name="archivo" class="inputfile" required>
+                <input type="submit" value="Subir Archivo">
             </form>
-         </div>
-      </div>
-   </body>
+        </div>
+    </div>
+</body>
 </html>

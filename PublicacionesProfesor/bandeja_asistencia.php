@@ -28,18 +28,38 @@
 
             <div class="user-list">
             
-                <?php 
-
-                  session_start(); 
-
+                <?php  
+                  
+                  session_start(); // Llamamos a la función "session_start()" para utilizar las variables de sesión.
+                  
                   $array_A=[];
                   $array_I=[];
+                  
+                  $A=0;
+                  $I=0;
 
-                  if(isset($_SESSION['array_A']) and isset($_SESSION['array_I'])) 
+                  // Establecemos la conexiónn a la base de datos :
+
+                  $consulta=mysqli_connect("localhost","root","","bandeja_asistencia") or die("Hubo problemas para conectarse a la base de datos.");
+                  
+                  $sql_consulta="SELECT * FROM alumnos"; // Definimos la acción.
+                  
+                  $accion_consulta=mysqli_query($consulta,$sql_consulta) or die(mysqli_error($consulta)); // Ejecutamos la acción.
+                  
+                  // Convertimos la tabla alumnos en un arreglo y lo recorremos para almacenar las asistencias e inasistencias registradas de los alumnos :
+
+                  while($resultados_consulta=mysqli_fetch_array($accion_consulta))
                   {
-                    $array_A = $_SESSION['array_A'];
-                    $array_I = $_SESSION['array_I'];
+                    $array_A[$A]=$resultados_consulta['asistencia']; // Almacenamos las asistencias.
+                    $array_I[$I]=$resultados_consulta['inasistencia']; // Almacenamos las inasistencias.
+                    
+                    // Aumentamos los iteradores :
+
+                    $A++;
+                    $I++;
                   }
+                  
+                  // Inicializamos los iteradores en 0 :
 
                   $A=0;
                   $I=0;
