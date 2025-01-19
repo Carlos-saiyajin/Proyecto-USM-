@@ -65,6 +65,26 @@
         .form-group button:hover {
             background-color: #0056b3;
         }
+        .message {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+        }
+        .message.success {
+            background-color: #28a745; /* Verde para mensajes de éxito */
+        }
+        .error-message {
+            color: #ffeb3b; /* Cambia el color según tu preferencia */
+            background-color: rgba(255, 0, 0, 0.5); /* Fondo semitransparente */
+            border: 2px solid #ff0000; /* Borde rojo */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interior */
+            margin-bottom: 15px; /* Espaciado inferior */
+            text-align: center; /* Centrar el texto */
+        }
     </style>
 </head>
 <body>
@@ -75,11 +95,13 @@
             <?php
             session_start();
             if (isset($_SESSION['mensaje'])) {
-                echo "<p>" . $_SESSION['mensaje'] . "</p>";
+                $mensaje_tipo = 'error-message'; // Define the message type
+                echo "<div class='message $mensaje_tipo'>" . $_SESSION['mensaje'] . "</div>";
                 unset($_SESSION['mensaje']);
             }
             if (isset($_SESSION['mensaje_correo_recuperacion'])) {
-                echo "<p>" . $_SESSION['mensaje_correo_recuperacion'] . "</p>";
+                $mensaje_tipo = 'error-message'; // Define the message type
+                echo "<div class='message $mensaje_tipo'>" . $_SESSION['mensaje_correo_recuperacion'] . "</div>";
                 unset($_SESSION['mensaje_correo_recuperacion']);}
             ?>
         </div>
