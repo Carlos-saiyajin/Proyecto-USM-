@@ -9,7 +9,7 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: url('./imagenes/usm_fondo.png') no-repeat center center fixed;
+            background: url('imagenes/pito.jpg') no-repeat center center fixed;
             background-size: cover;
             margin: 0;
             padding: 0;
@@ -90,6 +90,7 @@
             display: block;
             border: 5px solid white; /* Marco alrededor de la imagen */
             border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.7);
         }
         .carousel-buttons {
             display: flex;
@@ -148,8 +149,8 @@
 
     <div class="carousel">
         <div class="carousel-inner" id="carousel">
-            <div class="carousel-item">
-                <img src="./imagenes/Campus_Santa_Maria.jpg" alt="Imagen 1">
+            <div class="carousel-item" >
+                <img src="./imagenes/Logo_USM_Horizontal.png" alt="Imagen 1">
             </div>
             <div class="carousel-item">
                 <img src="./imagenes/2_Seccion-de-publicaciones-del-profesor.png" alt="Imagen 2">

@@ -1,0 +1,143 @@
+/* Interfaz para el archivo "menu_index.php" : */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('imagenes/pito.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: white;
+}
+
+.header {
+    background: rgba(0, 123, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeIn 1s;
+    margin-bottom: 20px;
+}
+
+.header-content {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+     margin-bottom: 5px; 
+     flex-direction: row; /* Añadido para disposición horizontal */
+}
+
+.header-content img {
+    height: 70px;
+}
+
+.header-content .welcome-message {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.header-content .date {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.main_container {
+    width: 80%;
+    max-width: 900px; /* Aumentar el ancho máximo */
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    animation: fadeIn 1s;
+}
+
+form, .buttons {
+    margin-bottom: 20px;
+}
+
+label, select, input[type="submit"], a>button{
+    display: inline-block;
+    margin: 5px 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+label{
+    font-weight: bold;
+    color:rgba(0, 0, 0, 0.788);
+}
+
+select{
+    background-color: rgba(0, 86, 179, 0.7);
+    color: white;
+}
+
+input[type="submit"]{
+    background-color: rgba(0, 123, 255, 0.7);
+    color: white;
+}
+
+input[type="submit"]:hover, a > button:hover, select:hover {
+    background-color: rgba(0, 68, 148, 0.7);
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid rgba(0, 123, 255, 0.7); /* Cambio de color */
+}
+
+th, td{
+    padding: 10px;
+    text-align: left;
+}
+
+th{
+    background: rgba(0, 123, 255, 0.9);
+    color: white;
+}
+
+td {
+    background: rgba(0, 86, 179, 0.7); /* Fondo de celda */
+    color: white; /* Color de texto */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.menu{
+
+    background-color: rgba(0, 68, 148, 0.7);
+    color:white;
+}
+
+.enlaces{
+
+    color:black;
+}
+
+.enlaces:hover{
+    
+    color:blue;
+}
+
+.table_head{
+
+    color:rgba(0, 0, 0, 0.815);
+}

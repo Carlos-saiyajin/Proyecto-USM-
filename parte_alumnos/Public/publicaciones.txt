@@ -1,0 +1,5 @@
+publicaciones/Public1.txt
+publicaciones/programacion poo.txt
+publicaciones/NumerosPerfectos.txt
+publicaciones/publicacion2.txt
+publicaciones/Diagrama De Flujo (Profesor) - Login (Nuevo).pdf
