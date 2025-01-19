@@ -146,8 +146,14 @@ mysqli_close($conn);
         .message.success {
             background-color: #28a745; /* Verde para mensajes de éxito */
         }
-        .message.error {
-            background-color: #dc3545; /* Rojo para mensajes de error */
+        .error-message {
+            color: #ffeb3b; /* Cambia el color según tu preferencia */
+            background-color: rgba(255, 0, 0, 0.5); /* Fondo semitransparente */
+            border: 2px solid #ff0000; /* Borde rojo */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interior */
+            margin-bottom: 15px; /* Espaciado inferior */
+            text-align: center; /* Centrar el texto */
         }
     </style>
 </head>

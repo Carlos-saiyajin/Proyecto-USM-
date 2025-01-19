@@ -20,7 +20,7 @@ if (($tiempo_actual - $tiempo_creacion) > $tiempo_expiracion) {
 
             $mail = mysqli_real_escape_string($conn, $_SESSION['mail']);
 
-            header('Location: /funcionando_login/nueva_password.php');
+            header('Location: /proyecto_USM/nueva_password.php');
             exit();
         } else {
             $_SESSION['mesage'] = "Código incorrecto. Intenta de nuevo.";
@@ -100,6 +100,26 @@ $_SESSION['mail'] = $_SESSION['mail'] ?? '';
         .form-group button:hover {
             background-color: #0056b3;
         }
+        .message {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+        }
+        .message.success {
+            background-color: #28a745; /* Verde para mensajes de éxito */
+        }
+        .error-message {
+            color: #ffeb3b; /* Cambia el color según tu preferencia */
+            background-color: rgba(255, 0, 0, 0.5); /* Fondo semitransparente */
+            border: 2px solid #ff0000; /* Borde rojo */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interior */
+            margin-bottom: 15px; /* Espaciado inferior */
+            text-align: center; /* Centrar el texto */
+        }
     </style>
 </head>
 <body>
@@ -109,12 +129,13 @@ $_SESSION['mail'] = $_SESSION['mail'] ?? '';
             <h2>Introduzca código de confirmación</h2>
 
             <?php
+            $mensaje_tipo = 'error-message'; // Define the variable with a default value
             if (isset($_SESSION['mensaje_correo_recuperacion'])) {
-                echo "<p>" . $_SESSION['mensaje_correo_recuperacion'] . "</p>";
+                echo "<div class='message $mensaje_tipo'>" . $_SESSION['mensaje_correo_recuperacion'] . "</div>";
                 unset($_SESSION['mensaje_correo_recuperacion']);
             }
             if (isset($_SESSION['mesage'])) {
-                echo "<p>" . $_SESSION['mesage'] . "</p>";
+                echo "<div class='message $mensaje_tipo'>" . $_SESSION['mesage'] . "</div>";
                 unset($_SESSION['mesage']);
             }
             ?>
